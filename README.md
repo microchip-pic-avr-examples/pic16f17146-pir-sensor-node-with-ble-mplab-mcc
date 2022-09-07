@@ -17,15 +17,15 @@ This document first covers overview of PIR sensor interface followed by BLE comm
 
 ## Software Used
 - MPLAB® X IDE [6.00 or newer](https://www.microchip.com/mplab/mplab-x-ide)
-- Microchip XC8 Compiler [2.35 or newer](https://www.microchip.com/mplab/compilers)
-- MPLAB® Code Configurator (MCC) [5.1.2 or newer](https://www.microchip.com/mplab/mplab-code-configurator)
+- Microchip XC8 Compiler [2.40 or newer](https://www.microchip.com/mplab/compilers)
+- MPLAB® Code Configurator (MCC) [5.1.9 or newer](https://www.microchip.com/mplab/mplab-code-configurator)
 -	Microchip PIC16F1xxxx Series Device Support (DFP) [1.14.187 or newer](https://packs.download.microchip.com/)
 - Microchip Bluetooth Data iOS® app [3.0 or newer](https://apps.apple.com/us/app/microchip-bluetooth-data/id1319166097)
 - Microchip Bluetooth Data Android™ app [6.1 or newer](https://play.google.com/store/apps/details?id=com.microchip.bluetooth.data)
 - RN4871 Firmware [1.41 or newer](https://www.microchip.com/product/RN4871)
 
 ## Hardware Used
--	[PIC16F17146 Curiosity Nano Board](https://www.microchip.com)
+-	[PIC16F17146 Curiosity Nano Board](https://www.microchip.com/en-us/development-tool/EV72J15A)
 -	[Curiosity Nano Base Board](https://www.microchip.com/development-tool/AC164162)
 -	[RN4871 Click Board](https://www.mikroe.com/rn4871-click)
 - [PIR Click Board](https://www.mikroe.com/pir-click)
@@ -211,15 +211,13 @@ RN4871 click does not provide the connection for RN4871’s UART_TX_IND pin on t
 | --- | -------------------                
 | RC3	| OPA Negative Channel<sup>2</sup>
 | RA5 | PIR output<sup>2,3</sup>
-| RA2	| LED
-| RC1	| EUSART2 RX<sup>1</sup>
-|RC0	| EUSART2 TX<sup>1</sup>
-| RC7	| RN4871 UART_TX_IND
-| RB6	| RN4871 RST_N<sup>1</sup>
-| RA5	| EUSART1 RX
-| RA4	| EUSART1 TX
-
-
+| RC1	| LED
+| RC4	| EUSART2 RX<sup>1</sup>
+| RC5	| EUSART2 TX<sup>1</sup>
+| RC6	| RN4871 UART_TX_IND
+| RA4	| RN4871 RST_N<sup>1</sup>
+| RB5	| EUSART1 RX
+| RB7	| EUSART1 TX
 
 <sup>1</sup> Connection from PIC16F17146 curiosity nano to click slot is not available for these pins. Jumper cables are used to make the required connections. For RN4871 TX pin, short **RX2** and **MISO** of Curiosity Nano Base Board. For RN4871 RX pin, short **TX2**, and **MOSI**. For RN4871 RST_N pin, short **RST2** and **INT1**.
 
@@ -256,7 +254,7 @@ RN4871 click does not provide the connection for RN4871’s UART_TX_IND pin on t
 ## Peripheral Configuration using MCC
 This section explains how to configure the peripherals using MPLAB X IDE with MCC plugin for recreation of the project.
 
-Refer [Software Used](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble#software-used) section to install required tools to recreate the project.
+Refer [Software Used](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#software-used) section to install required tools to recreate the project.
 
 Additional Links: [MCC Melody Technical Reference](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=MCC.MELODY.INTRODUCTION&redirect=true)
 

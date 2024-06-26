@@ -23,7 +23,7 @@
 #include "pir.h"
 
 #define WARM_UP_DELAY_ms        (5000U) //Initial wait time to settle PIR output 
-#define PIR_DEFAULT_SENSITIVITY (15U)  //Chnage in ADC count required to report object detection. Lesser the number higher is the sensitivity
+#define PIR_DEFAULT_SENSITIVITY (15U)  //Change in ADC count required to report object detection. Lesser the number higher is the sensitivity
 #define DAC_VALUE_853mV         (91U) //DAC data register value corresponding to 853 mV
 #define LED_BLINK_PERIOD_ms     (250U)
 

@@ -1,4 +1,4 @@
-<config configName="default" projectName="pic16f17146-pir-sensor-with-ble" configVersion="1.1" device="PIC16F17146" deviceLibraryClass="com.microchip.mcc.melody.Library" coreVersion="5.4.1">
+<config configName="default" projectName="pic16f17146-pir-sensor-with-ble" configVersion="1.1" device="PIC16F17146" deviceLibraryClass="com.microchip.mcc.melody.Library" coreVersion="5.7.0">
    <usedPackages class="java.util.ArrayList">
       <package packageName="@mchp-mcc/main-manager" version="3.1.1" contentType="MELODY">
          <modules class="java.util.ArrayList"/>

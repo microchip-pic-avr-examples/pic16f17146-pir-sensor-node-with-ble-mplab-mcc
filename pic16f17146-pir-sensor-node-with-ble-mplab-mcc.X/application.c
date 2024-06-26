@@ -112,6 +112,7 @@ void ApplicationTask(void)
     }
     else if (isADCThresholdInterruptOccured)
     {
+        printf("ADC Threshold Interrupt occurred");
         PIR_StopSampling();
 
         isADCThresholdInterruptOccured = false;      

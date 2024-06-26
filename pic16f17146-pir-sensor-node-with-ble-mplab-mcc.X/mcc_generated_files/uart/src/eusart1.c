@@ -208,7 +208,7 @@ void EUSART1_Write(uint8_t txData)
     TX1REG = txData;
 }
 
-char getch(void)
+int getch(void)
 {
     while(!(EUSART1_IsRxReady()));
     return EUSART1_Read();

@@ -11,7 +11,7 @@
 */
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -57,12 +57,13 @@ const uart_drv_interface_t UART2 = {
     .IsTxDone = &EUSART2_IsTxDone,
     .TransmitEnable = &EUSART2_TransmitEnable,
     .TransmitDisable = &EUSART2_TransmitDisable,
-    .AutoBaudSet = NULL,
-    .AutoBaudQuery = NULL,
-    .BRGSet = NULL,
-    .BRGGet = NULL,
-    .BaudSet = NULL,
-    .BaudGet = NULL,
+    .AutoBaudSet = &EUSART2_AutoBaudSet,
+    .AutoBaudQuery = &EUSART2_AutoBaudQuery,
+    .BRGCountSet = NULL,
+    .BRGCountGet = NULL,
+    .BaudRateSet = NULL,
+    .BaudRateGet = NULL,
+    .AutoBaudEventEnableGet = NULL,
     .ErrorGet = &EUSART2_ErrorGet,
     .TxCompleteCallbackRegister = NULL,
     .RxCompleteCallbackRegister = &EUSART2_RxCompleteCallbackRegister,
@@ -143,14 +144,15 @@ void EUSART2_Deinitialize(void)
 
 inline void EUSART2_Enable(void)
 {
-    RC2STAbits.SREN = 1;
+    RC2STAbits.SPEN = 1;
 
 }
 
 inline void EUSART2_Disable(void)
 {
-    RC2STAbits.SREN = 0;
+    RC2STAbits.SPEN = 0;
 }
+
 
 inline void EUSART2_TransmitEnable(void)
 {
@@ -180,6 +182,33 @@ inline void EUSART2_SendBreakControlEnable(void)
 inline void EUSART2_SendBreakControlDisable(void)
 {
     TX2STAbits.SENDB = 0;
+}
+
+inline void EUSART2_AutoBaudSet(bool enable)
+{
+    if(enable)
+    {
+        BAUD2CONbits.ABDEN = 1;
+    }
+    else
+    {
+       BAUD2CONbits.ABDEN = 0; 
+    }
+}
+
+inline bool EUSART2_AutoBaudQuery(void)
+{
+return (bool)(!BAUD2CONbits.ABDEN);
+}
+
+inline bool EUSART2_IsAutoBaudDetectOverflow(void)
+{
+    return (bool)BAUD2CONbits.ABDOVF; 
+}
+
+inline void EUSART2_AutoBaudDetectOverflowReset(void)
+{
+    BAUD2CONbits.ABDOVF = 0; 
 }
 
 inline void EUSART2_ReceiveInterruptEnable(void)
@@ -217,13 +246,14 @@ uint8_t EUSART2_Read(void)
     uint8_t readValue  = 0;
     uint8_t tempRxTail;
     
+    readValue = eusart2RxBuffer[eusart2RxTail];
+
     tempRxTail = (eusart2RxTail + 1) & EUSART2_RX_BUFFER_MASK; // Buffer size of RX should be in the 2^n
     
     eusart2RxTail = tempRxTail;
 
     eusart2RxLastError = eusart2RxStatusBuffer[eusart2RxTail];
     
-    readValue = eusart2RxBuffer[eusart2RxTail];
 
     PIE5bits.RC2IE = 0; 
     if(eusart2RxCount != 0)
@@ -268,8 +298,8 @@ void EUSART2_ReceiveISR(void)
 	} 
     else
     {
+        eusart2RxBuffer[eusart2RxHead] = regValue;
 		eusart2RxHead = tempRxHead;
-		eusart2RxBuffer[tempRxHead] = regValue;
 		eusart2RxCount++;
 	}   
 }

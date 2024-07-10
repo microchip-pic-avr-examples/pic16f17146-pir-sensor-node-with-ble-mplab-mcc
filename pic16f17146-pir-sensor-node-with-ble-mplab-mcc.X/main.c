@@ -1,4 +1,4 @@
-/*
+ /*
  * MAIN Generated Driver File
  * 
  * @file main.c
@@ -8,10 +8,10 @@
  * @brief This is the generated driver implementation file for the MAIN driver.
  *
  * @version MAIN Driver Version 1.0.0
- */
+*/
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -29,13 +29,15 @@
     TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
     EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
     THIS SOFTWARE.
- */
+*/
+
 #include "mcc_generated_files/system/system.h"
 #include "application.h"
 
-/*
-    Main application
- */
+#include<stdio.h>
+//*
+//    Main application
+//*
 
 int main(void)
 {
@@ -44,23 +46,22 @@ int main(void)
     // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts 
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts 
     // Use the following macros to: 
-
     // Enable the Global Interrupts 
-    INTERRUPT_GlobalInterruptEnable();
+    
+    INTERRUPT_GlobalInterruptEnable(); 
 
     // Disable the Global Interrupts 
     //INTERRUPT_GlobalInterruptDisable(); 
 
     // Enable the Peripheral Interrupts 
-    INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable(); 
 
     // Disable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptDisable();
-    
-    ApplicationSetup();
+    //INTERRUPT_PeripheralInterruptDisable(); 
 
-    while (1)
+    ApplicationSetup();
+    while(1)
     {
-        ApplicationTask();      
-    }
+        ApplicationTask(); 
+    }    
 }

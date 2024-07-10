@@ -5,12 +5,12 @@
  * 
  * @ingroup dac2
  * 
- * @brief This is the generated driver implementation file for the DAC2 driver using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+ * @brief This is the generated driver implementation file for the DAC2 driver using PIC10/12/16/18 MCUs
  *
- * @version DAC2 Driver Version 2.1.0
+ * @version DAC2 Driver Version 2.1.1
 */
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -41,24 +41,24 @@
   Section: DAC2 APIs
 */
 
-void DAC2_Initialize(void) {
- 
-    //DACPSS FVR; DACNSS VSS; DACOE DACOUT1 and DACOUT2 are Disabled; DACEN enabled; 
+void DAC2_Initialize(void) 
+{ 
+    //DACPSS FVR; DACNSS VSS; DACEN enabled; 
     DAC2CON =  136;
 
     //DACR 125; 
-    DAC2DATL =  125; 
+    DAC2DATL =  125;     
 }
 
-void DAC2_SetOutput(uint8_t inputData) {
- 
+void DAC2_SetOutput(uint8_t inputData) 
+{
     DAC2DATL =  inputData;
 }
-
-uint8_t DAC2_GetOutput(void) {
- 
+uint8_t DAC2_GetOutput(void) 
+{
     return DAC2DATL;
 }
+
 /**
  End of File
 */

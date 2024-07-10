@@ -4,17 +4,11 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>pic16f17146-pir-sensor-node-with-ble-mplab-mcc</name>
-            <creation-uuid>612726b8-10f7-4cdd-b086-6a022c7aafa1</creation-uuid>
+            <creation-uuid>1055d786-df28-4e79-ad1e-3c02c1919a71</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions>c</c-extensions>
-            <cpp-extensions/>
-            <header-extensions>h</header-extensions>
-            <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>.</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>free</name>

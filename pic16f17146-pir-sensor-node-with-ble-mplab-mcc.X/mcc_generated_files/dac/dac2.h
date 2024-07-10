@@ -5,12 +5,12 @@
  * 
  * @defgroup  dac2 DAC2
  * 
- * @brief This is the generated header file for the DAC2 driver using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+ * @brief This is the generated header file for the DAC2 driver using PIC10/12/16/18 MCUs
  *
- * @version DAC2 Driver Version 2.1.0
+ * @version DAC2 Driver Version 2.1.1
 */
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -46,25 +46,26 @@
 
 /**
  * @ingroup dac2
- * @brief  This routine initializes the DAC2 and must be called only once, before any other DAC2 routine is called.
- * @param void
- * @return void
+ * @brief  Initializes the DAC1 module. This routine is called only once during system initialization, before calling other APIs.
+ * @param None.
+ * @return None.
  */ 
 void DAC2_Initialize(void);
 
+
 /**
  * @ingroup dac2
- * @brief  This routine pass the digital input data intoDAC2 voltage reference control register.
- * @param inputData - 8bit digital data to DAC2.
- * @return void
+ * @brief  Passes the digital input data into the DAC2 Voltage Reference Control register.
+ * @param inputData - 8-bit digital data passed to DAC2
+ * @return None.
  */
 void DAC2_SetOutput(uint8_t inputData);
 
 /**
  * @ingroup dac2
- * @brief  This routine reads the digital input data fed to DAC2 voltage reference control register.
- * @param void
- * @return uint8_t inputData - digital data fed to DAC2
+ * @brief  Reads the digital input data sent to the DAC2 Voltage Reference Control register.
+ * @param None.
+ * @return uint8_t inputData - Digital data sent to the DAC2
  */
 uint8_t DAC2_GetOutput(void);
 

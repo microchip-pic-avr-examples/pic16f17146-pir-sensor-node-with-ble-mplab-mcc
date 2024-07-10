@@ -1,16 +1,16 @@
 /**
- * OPA1 Generated Driver File
+ * OPA1 Generated Driver File.
  * 
  * @file opa1.c
  * 
  * @ingroup  opa1
  * 
- * @brief This is the generated driver implementation file for the OPA1 driver.
+ * @brief This file contains the API implementations for the OPA1 driver.
  *
- * @version OPA1 Driver Version 2.1.0
+ * @version OPA1 Driver Version 2.1.1
 */
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 

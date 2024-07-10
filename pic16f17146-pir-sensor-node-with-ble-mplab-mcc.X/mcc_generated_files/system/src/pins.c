@@ -12,7 +12,7 @@
 */
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -34,7 +34,7 @@
 
 #include "../pins.h"
 
-void (*RC6_InterruptHandler)(void);
+void (*RN4871_UART_InterruptHandler)(void);
 
 void PIN_MANAGER_Initialize(void)
 {
@@ -50,14 +50,14 @@ void PIN_MANAGER_Initialize(void)
     */
     TRISA = 0x27;
     TRISB = 0x70;
-    TRISC = 0xD9;
+    TRISC = 0xD8;
 
     /**
     ANSELx registers
     */
     ANSELA = 0x27;
     ANSELB = 0x50;
-    ANSELC = 0x8D;
+    ANSELC = 0x8C;
 
     /**
     WPUx registers
@@ -66,11 +66,6 @@ void PIN_MANAGER_Initialize(void)
     WPUB = 0x0;
     WPUC = 0x0;
   
-
-    /**
-    APFCONx registers
-    */
-
     /**
     ODx registers
     */
@@ -99,6 +94,10 @@ void PIN_MANAGER_Initialize(void)
     RB7PPS = 0x13;  //RB7->EUSART1:TX1;
     RC5PPS = 0x16;  //RC5->EUSART2:TX2;
 
+    /**
+    APFCON registers
+    */
+
    /**
     IOCx registers 
     */
@@ -112,7 +111,7 @@ void PIN_MANAGER_Initialize(void)
     IOCCN = 0x40;
     IOCCF = 0x0;
 
-    RC6_SetInterruptHandler(RC6_DefaultInterruptHandler);
+    RN4871_UART_SetInterruptHandler(RN4871_UART_DefaultInterruptHandler);
 
     // Enable PIE0bits.IOCIE interrupt 
     PIE0bits.IOCIE = 1; 
@@ -120,24 +119,24 @@ void PIN_MANAGER_Initialize(void)
   
 void PIN_MANAGER_IOC(void)
 {
-    // interrupt on change for pin RC6}
+    // interrupt on change for pin RN4871_UART}
     if(IOCCFbits.IOCCF6 == 1)
     {
-        RC6_ISR();  
+        RN4871_UART_ISR();  
     }
 }
    
 /**
-   RC6 Interrupt Service Routine
+   RN4871_UART Interrupt Service Routine
 */
-void RC6_ISR(void) {
+void RN4871_UART_ISR(void) {
 
     // Add custom IOCCF6 code
 
     // Call the interrupt handler for the callback registered at runtime
-    if(RC6_InterruptHandler)
+    if(RN4871_UART_InterruptHandler)
     {
-        RC6_InterruptHandler();
+        RN4871_UART_InterruptHandler();
     }
     IOCCFbits.IOCCF6 = 0;
 }
@@ -145,16 +144,16 @@ void RC6_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCCF6 at application runtime
 */
-void RC6_SetInterruptHandler(void (* InterruptHandler)(void)){
-    RC6_InterruptHandler = InterruptHandler;
+void RN4871_UART_SetInterruptHandler(void (* InterruptHandler)(void)){
+    RN4871_UART_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCCF6
 */
-void RC6_DefaultInterruptHandler(void){
-    // add your RC6 interrupt custom code
-    // or set custom function using RC6_SetInterruptHandler()
+void RN4871_UART_DefaultInterruptHandler(void){
+    // add your RN4871_UART interrupt custom code
+    // or set custom function using RN4871_UART_SetInterruptHandler()
 }
 /**
  End of File

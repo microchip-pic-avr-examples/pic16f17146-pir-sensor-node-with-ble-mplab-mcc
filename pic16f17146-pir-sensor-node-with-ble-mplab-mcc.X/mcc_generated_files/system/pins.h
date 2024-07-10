@@ -12,7 +12,7 @@
 */
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -68,7 +68,6 @@
 #define RN4871_RST_N_SetOpenDrain()       do { ODCONAbits.ODCA4 = 1; } while(0)
 #define RN4871_RST_N_SetAnalogMode()      do { ANSELAbits.ANSA4 = 1; } while(0)
 #define RN4871_RST_N_SetDigitalMode()     do { ANSELAbits.ANSA4 = 0; } while(0)
-
 // get/set IO_RB5 aliases
 #define IO_RB5_TRIS                 TRISBbits.TRISB5
 #define IO_RB5_LAT                  LATBbits.LATB5
@@ -88,7 +87,6 @@
 #define IO_RB5_SetOpenDrain()       do { ODCONBbits.ODCB5 = 1; } while(0)
 #define IO_RB5_SetAnalogMode()      do { ANSELBbits.ANSB5 = 1; } while(0)
 #define IO_RB5_SetDigitalMode()     do { ANSELBbits.ANSB5 = 0; } while(0)
-
 // get/set IO_RB7 aliases
 #define IO_RB7_TRIS                 TRISBbits.TRISB7
 #define IO_RB7_LAT                  LATBbits.LATB7
@@ -108,7 +106,25 @@
 #define IO_RB7_SetOpenDrain()       do { ODCONBbits.ODCB7 = 1; } while(0)
 #define IO_RB7_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
 #define IO_RB7_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
-
+// get/set IO_RC0 aliases
+#define IO_RC0_TRIS                 TRISCbits.TRISC0
+#define IO_RC0_LAT                  LATCbits.LATC0
+#define IO_RC0_PORT                 PORTCbits.RC0
+#define IO_RC0_WPU                  WPUCbits.WPUC0
+#define IO_RC0_OD                   ODCONCbits.ODCC0
+#define IO_RC0_ANS                  ANSELCbits.ANSC0
+#define IO_RC0_SetHigh()            do { LATCbits.LATC0 = 1; } while(0)
+#define IO_RC0_SetLow()             do { LATCbits.LATC0 = 0; } while(0)
+#define IO_RC0_Toggle()             do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0)
+#define IO_RC0_GetValue()           PORTCbits.RC0
+#define IO_RC0_SetDigitalInput()    do { TRISCbits.TRISC0 = 1; } while(0)
+#define IO_RC0_SetDigitalOutput()   do { TRISCbits.TRISC0 = 0; } while(0)
+#define IO_RC0_SetPullup()          do { WPUCbits.WPUC0 = 1; } while(0)
+#define IO_RC0_ResetPullup()        do { WPUCbits.WPUC0 = 0; } while(0)
+#define IO_RC0_SetPushPull()        do { ODCONCbits.ODCC0 = 0; } while(0)
+#define IO_RC0_SetOpenDrain()       do { ODCONCbits.ODCC0 = 1; } while(0)
+#define IO_RC0_SetAnalogMode()      do { ANSELCbits.ANSC0 = 1; } while(0)
+#define IO_RC0_SetDigitalMode()     do { ANSELCbits.ANSC0 = 0; } while(0)
 // get/set IO_RC1 aliases
 #define LED0_TRIS                 TRISCbits.TRISC1
 #define LED0_LAT                  LATCbits.LATC1
@@ -128,7 +144,6 @@
 #define LED0_SetOpenDrain()       do { ODCONCbits.ODCC1 = 1; } while(0)
 #define LED0_SetAnalogMode()      do { ANSELCbits.ANSC1 = 1; } while(0)
 #define LED0_SetDigitalMode()     do { ANSELCbits.ANSC1 = 0; } while(0)
-
 // get/set IO_RC2 aliases
 #define IO_RC2_TRIS                 TRISCbits.TRISC2
 #define IO_RC2_LAT                  LATCbits.LATC2
@@ -148,7 +163,6 @@
 #define IO_RC2_SetOpenDrain()       do { ODCONCbits.ODCC2 = 1; } while(0)
 #define IO_RC2_SetAnalogMode()      do { ANSELCbits.ANSC2 = 1; } while(0)
 #define IO_RC2_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
-
 // get/set IO_RC3 aliases
 #define RC3_IN1_TRIS                 TRISCbits.TRISC3
 #define RC3_IN1_LAT                  LATCbits.LATC3
@@ -168,7 +182,6 @@
 #define RC3_IN1_SetOpenDrain()       do { ODCONCbits.ODCC3 = 1; } while(0)
 #define RC3_IN1_SetAnalogMode()      do { ANSELCbits.ANSC3 = 1; } while(0)
 #define RC3_IN1_SetDigitalMode()     do { ANSELCbits.ANSC3 = 0; } while(0)
-
 // get/set IO_RC4 aliases
 #define IO_RC4_TRIS                 TRISCbits.TRISC4
 #define IO_RC4_LAT                  LATCbits.LATC4
@@ -188,7 +201,6 @@
 #define IO_RC4_SetOpenDrain()       do { ODCONCbits.ODCC4 = 1; } while(0)
 #define IO_RC4_SetAnalogMode()      do { ANSELCbits.ANSC4 = 1; } while(0)
 #define IO_RC4_SetDigitalMode()     do { ANSELCbits.ANSC4 = 0; } while(0)
-
 // get/set IO_RC5 aliases
 #define IO_RC5_TRIS                 TRISCbits.TRISC5
 #define IO_RC5_LAT                  LATCbits.LATC5
@@ -208,27 +220,26 @@
 #define IO_RC5_SetOpenDrain()       do { ODCONCbits.ODCC5 = 1; } while(0)
 #define IO_RC5_SetAnalogMode()      do { ANSELCbits.ANSC5 = 1; } while(0)
 #define IO_RC5_SetDigitalMode()     do { ANSELCbits.ANSC5 = 0; } while(0)
-
 // get/set IO_RC6 aliases
-#define RN4871_UART_TX_IND_TRIS                 TRISCbits.TRISC6
-#define RN4871_UART_TX_IND_LAT                  LATCbits.LATC6
-#define RN4871_UART_TX_IND_PORT                 PORTCbits.RC6
-#define RN4871_UART_TX_IND_WPU                  WPUCbits.WPUC6
-#define RN4871_UART_TX_IND_OD                   ODCONCbits.ODCC6
-#define RN4871_UART_TX_IND_ANS                  ANSELCbits.ANSC6
-#define RN4871_UART_TX_IND_SetHigh()            do { LATCbits.LATC6 = 1; } while(0)
-#define RN4871_UART_TX_IND_SetLow()             do { LATCbits.LATC6 = 0; } while(0)
-#define RN4871_UART_TX_IND_Toggle()             do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0)
-#define RN4871_UART_TX_IND_GetValue()           PORTCbits.RC6
-#define RN4871_UART_TX_IND_SetDigitalInput()    do { TRISCbits.TRISC6 = 1; } while(0)
-#define RN4871_UART_TX_IND_SetDigitalOutput()   do { TRISCbits.TRISC6 = 0; } while(0)
-#define RN4871_UART_TX_IND_SetPullup()          do { WPUCbits.WPUC6 = 1; } while(0)
-#define RN4871_UART_TX_IND_ResetPullup()        do { WPUCbits.WPUC6 = 0; } while(0)
-#define RN4871_UART_TX_IND_SetPushPull()        do { ODCONCbits.ODCC6 = 0; } while(0)
-#define RN4871_UART_TX_IND_SetOpenDrain()       do { ODCONCbits.ODCC6 = 1; } while(0)
-#define RN4871_UART_TX_IND_SetAnalogMode()      do { ANSELCbits.ANSC6 = 1; } while(0)
-#define RN4871_UART_TX_IND_SetDigitalMode()     do { ANSELCbits.ANSC6 = 0; } while(0)
-
+#define RN4871_UART_TRIS                 TRISCbits.TRISC6
+#define RN4871_UART_LAT                  LATCbits.LATC6
+#define RN4871_UART_PORT                 PORTCbits.RC6
+#define RN4871_UART_WPU                  WPUCbits.WPUC6
+#define RN4871_UART_OD                   ODCONCbits.ODCC6
+#define RN4871_UART_ANS                  ANSELCbits.ANSC6
+#define RN4871_UART_SetHigh()            do { LATCbits.LATC6 = 1; } while(0)
+#define RN4871_UART_SetLow()             do { LATCbits.LATC6 = 0; } while(0)
+#define RN4871_UART_Toggle()             do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0)
+#define RN4871_UART_GetValue()           PORTCbits.RC6
+#define RN4871_UART_SetDigitalInput()    do { TRISCbits.TRISC6 = 1; } while(0)
+#define RN4871_UART_SetDigitalOutput()   do { TRISCbits.TRISC6 = 0; } while(0)
+#define RN4871_UART_SetPullup()          do { WPUCbits.WPUC6 = 1; } while(0)
+#define RN4871_UART_ResetPullup()        do { WPUCbits.WPUC6 = 0; } while(0)
+#define RN4871_UART_SetPushPull()        do { ODCONCbits.ODCC6 = 0; } while(0)
+#define RN4871_UART_SetOpenDrain()       do { ODCONCbits.ODCC6 = 1; } while(0)
+#define RN4871_UART_SetAnalogMode()      do { ANSELCbits.ANSC6 = 1; } while(0)
+#define RN4871_UART_SetDigitalMode()     do { ANSELCbits.ANSC6 = 0; } while(0)
+#define RC6_SetInterruptHandler  RN4871_UART_SetInterruptHandler
 /**
  * @ingroup  pinsdriver
  * @brief GPIO and peripheral I/O initialization
@@ -247,43 +258,43 @@ void PIN_MANAGER_IOC(void);
 
 /**
  * @ingroup  pinsdriver
- * @brief Interrupt on Change Handler for the RC6 pin functionality
+ * @brief Interrupt on Change Handler for the RN4871_UART pin functionality
  * @param none
  * @return none
  */
-void RC6_ISR(void);
+void RN4871_UART_ISR(void);
 
 /**
  * @ingroup  pinsdriver
- * @brief Interrupt Handler Setter for RC6 pin interrupt-on-change functionality.
- *        Allows selecting an interrupt handler for RC6 at application runtime.
+ * @brief Interrupt Handler Setter for RN4871_UART pin interrupt-on-change functionality.
+ *        Allows selecting an interrupt handler for RN4871_UART at application runtime.
  * @pre Pins intializer called
  * @param InterruptHandler function pointer.
  * @return none
  */
-void RC6_SetInterruptHandler(void (* InterruptHandler)(void));
+void RN4871_UART_SetInterruptHandler(void (* InterruptHandler)(void));
 
 /**
  * @ingroup  pinsdriver
- * @brief Dynamic Interrupt Handler for RC6 pin.
- *        This is a dynamic interrupt handler to be used together with the RC6_SetInterruptHandler() method.
- *        This handler is called every time the RC6 ISR is executed and allows any function to be registered at runtime.
+ * @brief Dynamic Interrupt Handler for RN4871_UART pin.
+ *        This is a dynamic interrupt handler to be used together with the RN4871_UART_SetInterruptHandler() method.
+ *        This handler is called every time the RN4871_UART ISR is executed and allows any function to be registered at runtime.
  * @pre Pins intializer called
  * @param none
  * @return none
  */
-extern void (*RC6_InterruptHandler)(void);
+extern void (*RN4871_UART_InterruptHandler)(void);
 
 /**
  * @ingroup  pinsdriver
- * @brief Default Interrupt Handler for RC6 pin. 
- *        This is a predefined interrupt handler to be used together with the RC6_SetInterruptHandler() method.
- *        This handler is called every time the RC6 ISR is executed. 
+ * @brief Default Interrupt Handler for RN4871_UART pin. 
+ *        This is a predefined interrupt handler to be used together with the RN4871_UART_SetInterruptHandler() method.
+ *        This handler is called every time the RN4871_UART ISR is executed. 
  * @pre Pins intializer called
  * @param none
  * @return none
  */
-void RC6_DefaultInterruptHandler(void);
+void RN4871_UART_DefaultInterruptHandler(void);
 
 
 #endif // PINS_H

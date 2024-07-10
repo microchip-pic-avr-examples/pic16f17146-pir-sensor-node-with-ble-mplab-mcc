@@ -10,7 +10,7 @@
  * @version EUSART2 Driver Version 3.0.0
 */
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -63,12 +63,13 @@
 
 #define UART2_TransmitEnable       EUSART2_TransmitEnable
 #define UART2_TransmitDisable      EUSART2_TransmitDisable
-#define UART2_AutoBaudSet          (NULL)
-#define UART2_AutoBaudQuery        (NULL)
-#define UART2_BRGSet               (NULL)
-#define UART2_BRGGet               (NULL)
-#define UART2_BaudSet              (NULL)
-#define UART2_BaudGet              (NULL)
+#define UART2_AutoBaudSet          EUSART2_AutoBaudSet
+#define UART2_AutoBaudQuery        EUSART2_AutoBaudQuery
+#define UART2_BRGCountSet                (NULL)
+#define UART2_BRGCountGet                (NULL)
+#define UART2_BaudRateSet                (NULL)
+#define UART2_BaudRateGet                (NULL)
+#define UART2__AutoBaudEventEnableGet    (NULL)
 #define UART2_ErrorGet             EUSART2_ErrorGet
 
 #define UART2_TxCompleteCallbackRegister     (NULL)
@@ -212,6 +213,38 @@ inline void EUSART2_SendBreakControlDisable(void);
 
 /**
  * @ingroup eusart2
+ * @brief This API enables the EUSART2 AutoBaud Detection.
+ * @param bool enable.
+ * @return None.
+ */
+inline void EUSART2_AutoBaudSet(bool enable);
+
+/**
+ * @ingroup eusart2
+ * @brief This API reads the EUSART2 AutoBaud Detection Complete bit.
+ * @param None.
+ * @return bool.
+ */
+inline bool EUSART2_AutoBaudQuery(void);
+
+/**
+ * @ingroup eusart2
+ * @brief This API reads the EUSART2 AutoBaud Detection overflow bit.
+ * @param None.
+ * @return None.
+ */
+inline bool EUSART2_IsAutoBaudDetectOverflow(void);
+
+/**
+ * @ingroup eusart2
+ * @brief This API Reset the EUSART2 AutoBaud Detection Overflow bit.
+ * @param None.
+ * @return None.
+ */
+inline void EUSART2_AutoBaudDetectOverflowReset(void);
+
+/**
+ * @ingroup eusart2
  * @brief This API checks if EUSART2 receiver has received data and ready to be read.
  * @param None.
  * @retval true if EUSART2 receiver FIFO has a data
@@ -296,6 +329,14 @@ void (*EUSART2_RxInterruptHandler)(void);
  * @return None.
  */
 void EUSART2_RxCompleteCallbackRegister(void (* callbackHandler)(void));
+
+/**
+ * @ingroup eusart2
+ * @brief This function is ISR function to be called upon Receiver interrupt.
+ * @param void.
+ * @return None.
+ */
+void EUSART2_ReceiveISR(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 

@@ -61,8 +61,8 @@ void ADC1_Initialize(void)
     ADSTPTH = 0x0;
     //ADACCU 0x0; 
     ADACCU = 0x0;
-    //ADRPT 64; 
-    ADRPT = 0x40;
+    //ADRPT 0; 
+    ADRPT = 0x00;
     //ADCHS ANC2; 
     ADPCH = 0x12;
     //ADCHS ANA0; 

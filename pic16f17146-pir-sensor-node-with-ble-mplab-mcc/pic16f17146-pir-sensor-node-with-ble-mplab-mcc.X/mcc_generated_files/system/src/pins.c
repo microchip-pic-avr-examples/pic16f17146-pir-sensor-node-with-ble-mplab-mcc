@@ -34,7 +34,7 @@
 
 #include "../pins.h"
 
-void (*RN4871_UART_InterruptHandler)(void);
+void (*RN4871_UART_TX_IND_InterruptHandler)(void);
 
 void PIN_MANAGER_Initialize(void)
 {
@@ -50,14 +50,14 @@ void PIN_MANAGER_Initialize(void)
     */
     TRISA = 0x27;
     TRISB = 0x70;
-    TRISC = 0xD8;
+    TRISC = 0xD9;
 
     /**
     ANSELx registers
     */
     ANSELA = 0x27;
     ANSELB = 0x50;
-    ANSELC = 0x8C;
+    ANSELC = 0x8D;
 
     /**
     WPUx registers
@@ -111,7 +111,7 @@ void PIN_MANAGER_Initialize(void)
     IOCCN = 0x40;
     IOCCF = 0x0;
 
-    RN4871_UART_SetInterruptHandler(RN4871_UART_DefaultInterruptHandler);
+    RN4871_UART_TX_IND_SetInterruptHandler(RN4871_UART_TX_IND_DefaultInterruptHandler);
 
     // Enable PIE0bits.IOCIE interrupt 
     PIE0bits.IOCIE = 1; 
@@ -119,24 +119,24 @@ void PIN_MANAGER_Initialize(void)
   
 void PIN_MANAGER_IOC(void)
 {
-    // interrupt on change for pin RN4871_UART}
+    // interrupt on change for pin RN4871_UART_TX_IND}
     if(IOCCFbits.IOCCF6 == 1)
     {
-        RN4871_UART_ISR();  
+        RN4871_UART_TX_IND_ISR();  
     }
 }
    
 /**
-   RN4871_UART Interrupt Service Routine
+   RN4871_UART_TX_IND Interrupt Service Routine
 */
-void RN4871_UART_ISR(void) {
+void RN4871_UART_TX_IND_ISR(void) {
 
     // Add custom IOCCF6 code
 
     // Call the interrupt handler for the callback registered at runtime
-    if(RN4871_UART_InterruptHandler)
+    if(RN4871_UART_TX_IND_InterruptHandler)
     {
-        RN4871_UART_InterruptHandler();
+        RN4871_UART_TX_IND_InterruptHandler();
     }
     IOCCFbits.IOCCF6 = 0;
 }
@@ -144,16 +144,16 @@ void RN4871_UART_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCCF6 at application runtime
 */
-void RN4871_UART_SetInterruptHandler(void (* InterruptHandler)(void)){
-    RN4871_UART_InterruptHandler = InterruptHandler;
+void RN4871_UART_TX_IND_SetInterruptHandler(void (* InterruptHandler)(void)){
+    RN4871_UART_TX_IND_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCCF6
 */
-void RN4871_UART_DefaultInterruptHandler(void){
-    // add your RN4871_UART interrupt custom code
-    // or set custom function using RN4871_UART_SetInterruptHandler()
+void RN4871_UART_TX_IND_DefaultInterruptHandler(void){
+    // add your RN4871_UART_TX_IND interrupt custom code
+    // or set custom function using RN4871_UART_TX_IND_SetInterruptHandler()
 }
 /**
  End of File

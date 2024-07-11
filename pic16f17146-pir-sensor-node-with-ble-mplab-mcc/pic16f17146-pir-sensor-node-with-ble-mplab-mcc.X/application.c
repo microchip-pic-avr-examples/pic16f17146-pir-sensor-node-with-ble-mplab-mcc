@@ -1,11 +1,33 @@
+/*
+© [2024] Microchip Technology Inc. and its subsidiaries.
+
+    Subject to your compliance with these terms, you may use Microchip 
+    software and any derivatives exclusively with Microchip products. 
+    You are responsible for complying with 3rd party license terms  
+    applicable to your use of 3rd party software (including open source  
+    software) that may accompany Microchip software. SOFTWARE IS ?AS IS.? 
+    NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS 
+    SOFTWARE, INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,  
+    MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT 
+    WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY 
+    KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF 
+    MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE 
+    FORESEEABLE. TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP?S 
+    TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
+    EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
+    THIS SOFTWARE.
+*/
+
+
 #include "mcc_generated_files/system/system.h"
 #include "rn4871_click.h"
 #include "pir_sensor.h"
 #include "application.h"
 
-volatile bool isDatacomingFromBLE = false; //flag to check if data is coming from RN4871
+volatile bool isDatacomingFromBLE = false; 
 volatile bool isADCThresholdInterruptOccured = false;
-volatile bool isBLEConnected = false; //flag to check if BLE is connected 
+volatile bool isBLEConnected = false; 
 
 void ApplicationSetup(void)
 {
@@ -14,7 +36,7 @@ void ApplicationSetup(void)
     RN4871_StopObservingIncomingData();
     PIR_StopObservingOutputChange();
     
-    RC6_SetInterruptHandler(RN4871_UART_TX_IND_IOC_UserInteruptHandler);
+    RN4871_UART_TX_IND_SetInterruptHandler(RN4871_UART_TX_IND_IOC_UserInteruptHandler);
     ADC1_SetADTIInterruptHandler(ADCC_UserThresholdInterrupt);
     Timer0.TimeoutCallbackRegister(TMR0_UserInterruptHandler);  
     
@@ -25,6 +47,8 @@ void ApplicationSetup(void)
     
     printf("PIR: Setting up PIR sensor..\r\n");
     PIR_Setup(); 
+    //ADRPT 64; 
+    ADRPT = 0x40; // as there is a bug in the MCC generated ADC initialization code, we are setting this value here
     printf("PIR: PIR sensor setup completed\r\n");
     PIR_StartObservingOutputChange();
 }

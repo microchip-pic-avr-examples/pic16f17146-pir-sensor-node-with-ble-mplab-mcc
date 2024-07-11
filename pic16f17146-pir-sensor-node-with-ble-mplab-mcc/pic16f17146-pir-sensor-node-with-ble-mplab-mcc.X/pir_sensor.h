@@ -21,8 +21,8 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef PIR_H
-#define	PIR_H
+#ifndef PIR_SENSOR_H
+#define	PIR_SENSOR_H
 
 #include <xc.h>  
 
@@ -86,4 +86,4 @@ void PIR_StartObservingOutputChange(void);
  */
 void PIR_StopObservingOutputChange(void);
 
-#endif	/* PIR_H */
+#endif	/* PIR_SENSOR_H */

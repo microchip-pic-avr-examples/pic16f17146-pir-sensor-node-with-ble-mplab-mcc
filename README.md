@@ -4,7 +4,7 @@
 # PIR Sensor Node With BLE Using PIC16F17146
 
 ## Overview
-This example can be divided into 2 parts – Passive Infrared (PIR) sensor  interface and Bluetooth Low Energy (BLE) communication.
+This example can be divided into two parts – Passive Infrared (PIR) sensor  interface and Bluetooth® Low Energy (BLE) communication.
 Both of these parts are independent to each other meaning any choice of sensor can be used in the place of PIR sensor. This document first covers the overview of the PIR sensor interface followed by BLE communication.
 
 ![sensor-node](images/sensor-node.png)
@@ -65,7 +65,7 @@ As observed previously, the PIR signal is at 800 mV in normal conditions. There 
 
 ![opa-circuit1](images/opa-circuit1.png)
 
-For above circuit, output can be given as:
+For the above circuit, output can be given as:
 
 `output=(-R2/R1)(PIR voltage - DC bias voltage)`
 
@@ -126,9 +126,10 @@ For detailed operation of ADCC LPF, refer to [AN2479](https://www.microchip.com/
 For this example, ADCRS is set as 6.
 
 To set the cutoff frequency to 3 Hz, T should be around 840 us.
+
 **Note:**
-          - Cutoff frequency of 3 Hz is set to match RC low pass filter cutoff frequency present on the click board.
-          - Timer 2 is used to trigger the ADCC in every 840 us.
+1. Cutoff frequency of 3 Hz is set to match RC low pass filter cutoff frequency present on the click board.
+2. Timer 2 is used to trigger the ADCC in every 840 us.
 
 The figure below shows the output of ADCC. There is a change in output values whenever the hand is moved across the PIR sensor.
 
@@ -137,7 +138,7 @@ The figure below shows the output of ADCC. There is a change in output values wh
 **Note:** The ADCC data is sent to the PC using EUSART and plotted by using the Data Stream protocol in the [Data Visualizer](https://www.microchip.com/en-us/tools-resources/debug/mplab-data-visualizer). The figure is for reference and firmware does not include data streaming instructions. For detailed information on Data Visualizer, refer to the [Data Visualizer User's Guide](https://www.microchip.com/DS50003001).
 
 ### Sleep Mode Operation and ADCC Threshold Interrupt
-In this example, the ADCC threshold interrupt is used to generate an interrupt whenever there is a change in ADCC output. The threshold comparison is performed on the final filtered value. When there is a change in filtered output by the amount set by the ADCC threshold value, it indicates that movement has been detected. Various operations can be performed on ADCC output to generate a threshold interrupt. Please refer to the device datasheet for details.
+In this example, the ADCC threshold interrupt is used to generate an interrupt whenever there is a change in ADCC output. The threshold comparison is performed on the final filtered value. When there is a change in filtered output by the amount set by the ADCC threshold value, it indicates that movement has been detected. Various operations can be performed on ADCC output to generate a threshold interrupt. Please refer to the device data sheet for details.
 
  Furthermore, when the ADCC is configured, the ADCC generates an interrupt when ADCC filtered value goes below some predefined value (lower threshold) and thus indicating movement is detected. The threshold value ultimately determines the sensitivity of the sensor. The higher the threshold value, the lower the sensitivity and vice versa.
 
@@ -159,7 +160,7 @@ Previously, the MCU operates most of the time in sleep mode. The BLE module’s 
 ## BLE Communication
 
 ### Transparent UART
-This example uses a private Generic Attribute Profile (GATT) service named “Transparent UART” introduced by the RN4871 software stack. Transparent UART transfers serial data from its UART over a Bluetooth Low Energy connection, providing an end-to-end data pipe to another Bluetooth® device.
+This example uses a private Generic Attribute Profile (GATT) service named “Transparent UART” introduced by the RN4871 software stack. Transparent UART transfers serial data from its UART over a Bluetooth Low Energy connection, providing an end-to-end data pipe to another Bluetooth device.
 
 Refer to [RN4870/71 Bluetooth Low Energy Module User’s Guide](https://www.microchip.com/DS50002466) for details.
 
@@ -180,7 +181,7 @@ The PIR Click board is used for demonstration purposes. The Click board needs to
 
 ![pir-click-modification](images/pir-click-modification.png)
 
-For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor datasheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS header to bypass the amplification and filter stage.
+For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor data sheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS header to bypass the amplification and filter stage.
 
 #### Hardware Modifications on RN4871 Click:
 The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin on the mikroBUS header. Thus, a wire is explicitly soldered to connect the UART_TX_IND pin (pin 15 – P2_7) and one of the NC pins (SCK) of the mikroBUS header. AN2 is then used as the UART_TX_IND pin.  
@@ -213,7 +214,7 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 <sup>3</sup>Pin RA5 should be in tri-state to avoid any interference with PIR output.
 
 ## Demo Operation
-1. When the device is powered on, the LED blinks for five seconds before turning off. The 5 sec is the warm-up time set for this example. This is a one-time process. There should not be any movement around the sensor during this time.
+1. When the device is powered on, the LED blinks for five seconds before turning off. The five sec is the warm-up time set for this example. This is a one-time process. There should not be any movement around the sensor during this time.
 2. Whenever movement is detected, the PIR sensor output goes below the threshold value. The LED turns on to indicate the movement. It stays on for five seconds before turning off. This process repeats whenever movement is detected. Also, a message is sent to the smartphone if a BLE connection is available.
 
 ![movement-detected](images/movement-detected.gif)
@@ -231,10 +232,11 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 4. Click on Scan. If a pop-up message appears to turn on Bluetooth, click Yes and then click Scan again.
 5. Click the Scan tab to list the devices.
 6. Wait four to five seconds, and then click Cancel to cancel the scan.
-**Note:** After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen. If the name is not listed, go to Step 4 and repeat the scan.
-8. Click on the BLE Module name.
-9. Wait for the connection.
-10. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.
+
+**Note:**After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen. If the name is not listed, go to Step 4 and repeat the scan.
+7. Click on the BLE Module name.
+8. Wait for the connection.
+9. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.
 
 ![connection-steps](images/connection-steps.gif)
 
@@ -252,7 +254,7 @@ Additional Links: [MCC Melody Technical Reference](https://onlinedocs.microchip.
 |    OPA                    |   *Hardware Settings*<br> Enable Op Amp<br>   Op Amp   Configuration – Inverting Programmable Gain Amplifier<br><br>*Channel Selection*<br>Positive Channel – DAC2_OUT<br>Negative Channel – GSEL<br>Negative Source Selection – OPA1IN1-  <br><br> *Programmable Gain and Feedback Selection* <br>Internal Resistor Ladder selection – R2/R1 = 15        |    Amplifies PIR output      |
 |    DAC2                    |  *Hardware Settings*<br>  Enable DAC<br>   DAC Positive reference selection – FVR<br>   DAC Negative reference selection – VSS  |    Connects to OPA non-inverting terminal. Provides bias voltage.                                   |    
 |    FVR                    |   *Hardware Settings*<br> Enable FVR<br>   FVR_buffer 1 Gain – off<br>   FVR_buffer 2 Gain – 2x       |    Provides reference voltage to DAC                                           |                                 
-|    ADCC                    |   *Software Settings*<br> TMR Dependecy Selector - TMR2<br><br>*Hardware Settings*<br>Enable ADCC<br>   Input   Configuration- Single Ended Mode<br> Positive   Reference – VDD<br>Auto-conversion Trigger – TMR2<br>Result   Alignment – Right justified<br><br> *Computation Settings*<br> Operating   Mode – Low Pass Filter Mode<br> Error Calculation Mode – Filtered value vs setpoint  <br> Threshold setpoint – 0 <br>Threshold Interrupt Mode – ADERR < ADLTH <br> Repeat – 64 <br> Accumulator Right Shift – 6 <br><br> *ADC Clock settings* <br> Clock Source – ADCRC  <br><br> *Interrupt Settings*<br>ADTI Interrupt Enable|    Monitors OPA output                                          |
+|    ADCC                    |   *Software Settings*<br> TMR Dependecy Selector - TMR2<br><br>*Hardware Settings*<br>Enable ADCC<br>   Input   Configuration- Single Ended Mode<br> Positive   Reference – VDD<br>Auto-conversion Trigger – TMR2<br>Result   Alignment – Right justified<br><br> *Computation Settings*<br> Operating   Mode – Low Pass Filter Mode<br> Error Calculation Mode – Filtered value vs setpoint  <br> Threshold setpoint – 0 <br> Upper Threshold - 0<br>Threshold Interrupt Mode – ADERR < ADLTH <br> Repeat – 64 <br> Accumulator Right Shift – 6 <br><br> *ADC Clock settings* <br> Clock Source – ADCRC  <br><br> *Interrupt Settings*<br>ADTI Interrupt Enable|    Monitors OPA output                                          |
 |    TMR2                    |   *Software Settings*<br> Dependency Selector – TMR2<br><br> *Hardware Settings*<br>Disable Timer<br>Control Mode – Roll over pulse<br>Start/Reset Option – Software control<br><br>*Timer Clock*<br> Clock Source – LFINTOSC <br> Prescaler – 1:1 <br> Postscaler – 1:1 <br><br>*Timer Period*<br>  Timer Period – 840 us         |    Triggers ADCC                                                      |
 |   TMR0  |   *Hardware Settings*<br> Disable Timer<br>   Clock Prescaler  – 1:1024<br> Clock Source – LFINTOSC<br>Disable   Synchronisation<br>        Requested   Period – 5s<br><br> *Interrupt Settings*<br>  Enable TMR Interrupt|    Provides time to turn off the LED                                  |
 |  EUSART1  |  *UART1 Driver*<br>Requested Baudrate –   9600 <br> UART PLIB Selector – EUSART1<br>Enable Redirect   STDIO to EUSART <br><br> *EUSART1 PLIB* <br>Enable Receive<br>  Enable Transmit<br> Enable Serial   Port                                                                                                                                                                                              |    Sends data to   PC terminal                                              |

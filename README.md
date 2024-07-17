@@ -149,7 +149,7 @@ After movement is detected, the MCU wakes up due to a lower threshold interrupt.
 When movement is detected, the MCU turns on the LED for five seconds. The MCU goes to sleep immediately after turning on the LED. TMR0 generates an interrupt after five seconds to turn off the LED. This period can be changed, per application, as needed.  
 
 ## RN4871 BLE Module Interface
-RN4871 communicates with the host controller using ASCII commands over the UART interface. RN4871 acts as a peripheral device and the smartphone acts as a central device throughout this application.
+RN4871 communicates with the host controller using ASCII commands over the  Universal Asynchronous Receiver/Transmitter (UART) interface(UART) interface. RN4871 acts as a peripheral device and the smartphone acts as a central device throughout this application.
 
 In this example, whenever movement is detected by the PIR sensor, a message is sent to the smartphone. Also, PIR sensitivity can be updated by sending data from the smartphone to the BLE module.
 
@@ -181,10 +181,10 @@ The PIR Click board is used for demonstration purposes. The Click board needs to
 
 ![pir-click-modification](images/pir-click-modification.png)
 
-For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor data sheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS header to bypass the amplification and filter stage.
+For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor data sheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS<sup> TM</sup> header to bypass the amplification and filter stage.
 
 #### Hardware Modifications on RN4871 Click:
-The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin on the mikroBUS header. Thus, a wire is explicitly soldered to connect the UART_TX_IND pin (pin 15 – P2_7) and one of the NC pins (SCK) of the mikroBUS header. AN2 is then used as the UART_TX_IND pin.  
+The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin on the mikroBUS header. Thus, a wire is explicitly soldered to connect the UART_TX_IND pin (pin 15 – P2_7) and one of the NC pins (SCK) of the mikroBUS header.
 
 ![rn4871-click-modification](images/rn4871-click-modification.png)
 
@@ -214,7 +214,7 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 <sup>3</sup>Pin RA5 should be in tri-state to avoid any interference with PIR output.
 
 ## Demo Operation
-1. When the device is powered on, the LED blinks for five seconds before turning off. The five sec is the warm-up time set for this example. This is a one-time process. There should not be any movement around the sensor during this time.
+1. When the device is powered on, the LED blinks for five seconds before turning off. The five seconds is the warm-up time set for this example. This is a one-time process. There should not be any movement around the sensor during this time.
 2. Whenever movement is detected, the PIR sensor output goes below the threshold value. The LED turns on to indicate the movement. It stays on for five seconds before turning off. This process repeats whenever movement is detected. Also, a message is sent to the smartphone if a BLE connection is available.
 
 ![movement-detected](images/movement-detected.gif)
@@ -231,11 +231,10 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 3. Click on BM70.
 4. Click on Scan. If a pop-up message appears to turn on Bluetooth, click Yes and then click Scan again.
 5. Click the Scan tab to list the devices.
-6. Wait four to five seconds, and then click Cancel to cancel the scan.
-
-**Note:**After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen. If the name is not listed, go to Step 4 and repeat the scan.
+6. Wait four to five seconds, and then click Cancel to cancel the scan. After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen.
+**Note:** If the name is not listed, go to Step 4 and repeat the scan.
 7. Click on the BLE Module name.
-8. Wait for the connection.
+8. Wait for the connection. The LED on the RN4871 Click board will blink twice continuously when the connected is established.
 9. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.
 
 ![connection-steps](images/connection-steps.gif)
@@ -261,7 +260,7 @@ Additional Links: [MCC Melody Technical Reference](https://onlinedocs.microchip.
 |    EUSART2                 |    *UART2 Driver*<br>Requested Baudrate –   9600 <br> UART PLIB Selector – EUSART2 <br> Enable Interrupt Driven<br> Enable Redirect   STDIO to EUSART  <br><br> *EUSART2 PLIB:* <br>     Enable   Receive<br>  Enable Transmit<br>  *Interrupt Settings* <br> Enable RCI interrupt                                                                                                                                                                                            |    Communicates with BLE module                                              |
 | Pins |  *Pins - Custom Name*<br> RC3 - RC3_IN1<br> RC1 - LED0<br> RC6 - RN4871_UART<br> RA4 - RN4871_RST_N <br><br> *Pin Grid View* <br> *EUSART1:*<br> RX1 - RB5<br> TX1 - RB7 <br>*OPA:*<br>OPA1INx<sup>-</sup> - RC3 <br> OPA1OUT - RC2 <br>*ADCC:*<br> ANPx - RC2 <br>*EUSART2:*<br> RX2 - RC4 <br> TX2 - RC5<br> *PINS:*<br> Input - RC6 <br> Output - RA4, RC1| Pin Configuration |
 
-**Note:** The on-board debugger present on the Curiosity Nano board has a virtual serial port (CDC) that is connected to a Universal Asynchronous Receiver/Transmitter (UART) on the PIC16F17146 and provides an easy way to communicate with the target application through terminal software. Refer to the Curiosity Nano User Guide for more details.
+**Note:** The on-board debugger present on the Curiosity Nano board has a virtual serial port (CDC) that is connected to a UART on the PIC16F17146 and provides an easy way to communicate with the target application through terminal software. Refer to the Curiosity Nano User Guide for more details.
 
 ## Summary
 This code example demonstrated interfacing of a passive infrared (PIR) sensor with BLE connectivity using various peripherals of PIC16F17146 microcontroller.

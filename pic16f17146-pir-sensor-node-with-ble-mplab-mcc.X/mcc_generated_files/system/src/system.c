@@ -40,7 +40,7 @@ void SYSTEM_Initialize(void)
 {
     CLOCK_Initialize();
     PIN_MANAGER_Initialize();
-    ADC1_Initialize();
+    ADCC_Initialize();
     DAC2_Initialize();
     EUSART1_Initialize();
     EUSART2_Initialize();

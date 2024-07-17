@@ -1,13 +1,13 @@
 /**
- * ADC1 Generated Driver File
+ * ADCC Generated Driver File
  * 
- * @file adc1.c
+ * @file adcc.c
  * 
- * @ingroup  adc1
+ * @ingroup  adcc
  * 
- * @brief This file contains the API implementations for the ADC1 driver.
+ * @brief This is the generated driver implementation file for the ADCC driver.
  *
- * @version ADC1 Driver Version 1.0.3
+ * @version ADCC Driver Version 1.0.1
 */
 /*
 © [2024] Microchip Technology Inc. and its subsidiaries.
@@ -35,18 +35,18 @@
 */
 
 #include <xc.h>
-#include "../adc1.h"
+#include "../adcc.h"
 
-static void (*ADC1_ADTI_InterruptHandler)(void);
-static void ADC1_DefaultADTI_ISR(void);
+static void (*ADCC_ADTI_InterruptHandler)(void);
+static void ADCC_DefaultADTI_ISR(void);
 
 /**
   Section: ADCC Module APIs
 */
 
-void ADC1_Initialize(void)
+void ADCC_Initialize(void)
 {
-    // set the ADC1 to the options selected in the User Interface
+    // set the ADCC to the options selected in the User Interface
     //ADLTHL 0; 
     ADLTHL = 0x0;
     //ADLTHH 0; 
@@ -62,13 +62,13 @@ void ADC1_Initialize(void)
     //ADACCU 0x0; 
     ADACCU = 0x0;
     //ADRPT 0; 
-    ADRPT = 0x00;
-    //ADCHS ANC2; 
-    ADPCH = 0x12;
+    ADRPT = 0x0;
+    //ADCHS ANA0; 
+    ADPCH = 0x0;
     //ADCHS ANA0; 
     ADNCH = 0x0;
-    //ADACQL 3; 
-    ADACQL = 0x3;
+    //ADACQL 0; 
+    ADACQL = 0x0;
     //ADACQH 0; 
     ADACQH = 0x0;
     //ADCAP Additional uC disabled; 
@@ -85,8 +85,8 @@ void ADC1_Initialize(void)
     ADCG1C = 0x0;
     //ADDSEN disabled; ADPCSC internal sampling capacitor and ext i/o pin; ADGPOL digital_low; ADIPEN disabled; ADPPOL Vss; 
     ADCON1 = 0x0;
-    //ADMD Low_pass_filter_mode; ADACLR disabled; ADCRS 6; ADPSIS RES; 
-    ADCON2 = 0x64;
+    //ADMD Basic_mode; ADACLR disabled; ADCRS 6; ADPSIS RES; 
+    ADCON2 = 0x60;
     //ADTMD ADERR < ADLTH; ADSOI ADGO not cleared; ADCALC Filtered value vs setpoint; 
     ADCON3 = 0x51;
     //ADMATH registers not updated; 
@@ -97,216 +97,223 @@ void ADC1_Initialize(void)
     ADACT = 0x4;
     //ADCCS FOSC/2; 
     ADCLK = 0x0;
-    //GO_nDONE undefined; ADIC single-ended mode; ADFM right justified; ADCS ADCRC; ADCONT disabled; ADON enabled; 
-    ADCON0 = 0x94;
+    //GO_nDONE undefined; ADIC single-ended mode; ADFM left justified; ADCS ADCRC; ADCONT disabled; ADON enabled; 
+    ADCON0 = 0x90;
     
-    //Clear the ADC interrupt flag
+    // Clear the ADC interrupt flag
     PIR6bits.ADIF = 0;
 
-    //Clear the ADC Threshold interrupt flag
+    // Clear the ADC Threshold interrupt flag
     PIR6bits.ADTIF = 0;
     //Configure interrupt handlers
-    ADC1_SetADTIInterruptHandler(ADC1_DefaultADTI_ISR);
-    //Enable ADC1 threshold interrupt.
+    ADCC_SetADTIInterruptHandler(ADCC_DefaultADTI_ISR);
+    // Enabling ADCC threshold interrupt.
     PIE6bits.ADTIE = 1;
 }
-void ADC1_StartConversion(adc1_channel_t channel)
+void ADCC_StartConversion(adcc_channel_t channel)
 {
-    //Selects the A/D channel
-    ADPCH = channel;      
+    // select the A/D channel
+    ADPCH = channel;
   
-    //Starts the conversion
+    // Turn on the ADC module
+    ADCON0bits.ON = 1;
+
+    // Start the conversion
     ADCON0bits.GO = 1;
 }
 
-bool ADC1_IsConversionDone(void)
+bool ADCC_IsConversionDone(void)
 {
-    //Starts the conversion
+    // Start the conversion
     return ((unsigned char)(!ADCON0bits.GO));
 }
 
-adc_result_t ADC1_GetConversionResult(void)
+adc_result_t ADCC_GetConversionResult(void)
 {
-    //Returns the result
+    // Return the result
     return ((adc_result_t)((ADRESH << 8) + ADRESL));
 }
 
-adc_result_t ADC1_GetSingleConversion(adc1_channel_t channel)
+adc_result_t ADCC_GetSingleConversion(adcc_channel_t channel)
 {
-    //Selects the A/D channel
+    // select the A/D channel
     ADPCH = channel;  
-   
-    //Disables the continuous mode.
+
+    // Turn on the ADC module
+    ADCON0bits.ON = 1;
+    
+    //Disable the continuous mode.
     ADCON0bits.CONT = 0;
 
-    //Starts the conversion
+    // Start the conversion
     ADCON0bits.GO = 1;
 
-    //Waits for the conversion to finish
+
+    // Wait for the conversion to finish
     while (ADCON0bits.GO)
     {
     }
     
-    //Conversion finished, returns the result
+    // Conversion finished, return the result
     return ((adc_result_t)((ADRESH << 8) + ADRESL));
 }
 
-inline void ADC1_StopConversion(void)
+inline void ADCC_StopConversion(void)
 {
-    //Resets the ADGO bit.
+    //Reset the ADGO bit.
     ADCON0bits.GO = 0;
 }
 
-inline void ADC1_SetStopOnInterrupt(void)
+inline void ADCC_SetStopOnInterrupt(void)
 {
-    //Sets the ADSOI bit.
+    //Set the ADSOI bit.
     ADCON3bits.ADSOI = 1;
 }
 
-inline void ADC1_DischargeSampleCapacitor(void)
+inline void ADCC_DischargeSampleCapacitor(void)
 {
-    //Sets the ADC channel to AVss.
+    //Set the ADC channel to AVss.
     ADPCH = 0x3a;   
 }
 
-void ADC1_LoadAcquisitionRegister(uint16_t acquisitionValue)
+void ADCC_LoadAcquisitionRegister(uint16_t acquisitionValue)
 {
-    //Loads the ADACQH and ADACQL registers.
+    //Load the ADACQH and ADACQL registers.
     ADACQH = (uint8_t) (acquisitionValue >> 8);
     ADACQL = (uint8_t) acquisitionValue;  
 }
 
-void ADC1_SetPrechargeTime(uint16_t prechargeTime)
+void ADCC_SetPrechargeTime(uint16_t prechargeTime)
 {
-    //Loads the ADPREH and ADPREL registers.
+    //Load the ADPREH and ADPREL registers.
     ADPREH = (uint8_t) (prechargeTime >> 8);
     ADPREL = (uint8_t) prechargeTime;
 }
 
-void ADC1_SetRepeatCount(uint8_t repeatCount)
+void ADCC_SetRepeatCount(uint8_t repeatCount)
 {
-    //Loads the ADRPT register.
+    //Load the ADRPT register.
     ADRPT = repeatCount;   
 }
 
-uint8_t ADC1_GetCurrentCountofConversions(void)
+uint8_t ADCC_GetCurrentCountofConversions(void)
 {
-    //Returns the contents of ADCNT register
+    //Return the contents of ADCNT register
     return ADCNT;
 }
 
-inline void ADC1_ClearAccumulator(void)
+inline void ADCC_ClearAccumulator(void)
 {
-    //Resets the ADCON2bits.ADACLR bit.
+    //Reset the ADCON2bits.ADACLR bit.
     ADCON2bits.ADACLR = 1;
 }
 
-uint24_t ADC1_GetAccumulatorValue(void)
+uint24_t ADCC_GetAccumulatorValue(void)
 {
-    //Returns the contents of ADACCU, ADACCH and ADACCL registers
+    //Return the contents of ADACCU, ADACCH and ADACCL registers
     return (((uint24_t)ADACCU << 16)+((uint24_t)ADACCH << 8) + ADACCL);
 }
 
-void ADC1_DefineSetPoint(uint16_t setPoint)
+void ADCC_DefineSetPoint(uint16_t setPoint)
 {
     //Sets the ADSTPTH and ADSTPTL registers
     ADSTPTH = (uint8_t) (setPoint >> 8);
     ADSTPTL = (uint8_t) setPoint;
 }
 
-uint16_t ADC1_GetErrorCalculation(void)
+uint16_t ADCC_GetErrorCalculation(void)
 {
-    //Returns the contents of ADERRH and ADERRL registers
+    //Return the contents of ADERRH and ADERRL registers
     return ((uint16_t)((ADERRH << 8) + ADERRL));
 }
 
-void ADC1_SetUpperThreshold(uint16_t upperThreshold)
+void ADCC_SetUpperThreshold(uint16_t upperThreshold)
 {
     //Sets the ADUTHH and ADUTHL registers
     ADUTHH = (uint8_t) (upperThreshold >> 8);
     ADUTHL = (uint8_t) upperThreshold;
 }
 
-void ADC1_SetLowerThreshold(uint16_t lowerThreshold)
+void ADCC_SetLowerThreshold(uint16_t lowerThreshold)
 {
     //Sets the ADLTHH and ADLTHL registers
     ADLTHH = (uint8_t) (lowerThreshold >> 8);
     ADLTHL = (uint8_t) lowerThreshold;
 }
 
-uint16_t ADC1_GetFilterValue(void)
+uint16_t ADCC_GetFilterValue(void)
 {
-    //Returns the contents of ADFLTRH and ADFLTRL registers
+    //Return the contents of ADFLTRH and ADFLTRL registers
     return ((uint16_t)((ADFLTRH << 8) + ADFLTRL));
 }
 
-uint16_t ADC1_GetPreviousResult(void)
+uint16_t ADCC_GetPreviousResult(void)
 {
-    //Returns the contents of ADPREVH and ADPREVL registers
+    //Return the contents of ADPREVH and ADPREVL registers
     return ((uint16_t)((ADPREVH << 8) + ADPREVL));
 }
 
-bool ADC1_HasAccumulatorOverflowed(void)
+bool ADCC_HasAccumulatorOverflowed(void)
 {
-    //Returns the status of ADSTATbits.ADAOV
+    //Return the status of ADSTATbits.ADAOV
     return ADSTATbits.ADAOV;
 }
 
-inline void ADC1_EnableDoubleSampling(void)
+inline void ADCC_EnableDoubleSampling(void)
 {
     //Sets the ADCON1bits.ADDSEN
     ADCON1bits.ADDSEN = 1;
 }
 
-inline void ADC1_EnableContinuousConversion(void)
+inline void ADCC_EnableContinuousConversion(void)
 {
     //Sets the ADCON0bits.CONT
     ADCON0bits.CONT = 1;
 }
 
-inline void ADC1_DisableContinuousConversion(void)
+inline void ADCC_DisableContinuousConversion(void)
 {
     //Resets the ADCON0bits.CONT
     ADCON0bits.CONT = 0;
 }
 
-bool ADC1_HasErrorCrossedUpperThreshold(void)
+bool ADCC_HasErrorCrossedUpperThreshold(void)
 {
     //Returns the value of ADSTATbits.ADUTHR bit.
     return ADSTATbits.ADUTHR;
 }
 
-bool ADC1_HasErrorCrossedLowerThreshold(void)
+bool ADCC_HasErrorCrossedLowerThreshold(void)
 {
     //Returns the value of ADSTATbits.ADLTHR bit.
     return ADSTATbits.ADLTHR;
 }
 
-uint8_t ADC1_GetConversionStageStatus(void)
+uint8_t ADCC_GetConversionStageStatus(void)
 {
     //Returns the contents of ADSTATbits.ADSTAT field.
     return ADSTATbits.ADSTAT;
 }
 
 
-void ADC1_ThresholdISR(void)
+void ADCC_ThresholdISR(void)
 {
-    //Clears the ADCC Threshold interrupt flag
+    // Clear the ADCC Threshold interrupt flag
     PIR6bits.ADTIF = 0;
 
-    if (ADC1_ADTI_InterruptHandler != NULL)
+    if (ADCC_ADTI_InterruptHandler != NULL)
     {
-        ADC1_ADTI_InterruptHandler();
+        ADCC_ADTI_InterruptHandler();
     }
 }
 
-void ADC1_SetADTIInterruptHandler(void (* InterruptHandler)(void))
+void ADCC_SetADTIInterruptHandler(void (* InterruptHandler)(void))
 {
-    ADC1_ADTI_InterruptHandler = InterruptHandler;
+    ADCC_ADTI_InterruptHandler = InterruptHandler;
 }
 
-static void ADC1_DefaultADTI_ISR(void)
+static void ADCC_DefaultADTI_ISR(void)
 {
     //Add your interrupt code here or
-    //Use ADC1_SetADTIInterruptHandler() function to use Custom ISR
+    //Use ADCC_SetADTIInterruptHandler() function to use Custom ISR
 }

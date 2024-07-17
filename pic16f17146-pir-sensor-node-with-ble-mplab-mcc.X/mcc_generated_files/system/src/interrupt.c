@@ -75,7 +75,7 @@ void __interrupt() INTERRUPT_InterruptManager (void)
         } 
         else if(PIE6bits.ADTIE == 1 && PIR6bits.ADTIF == 1)
         {
-            ADC1_ThresholdISR();
+            ADCC_ThresholdISR();
         } 
         else
         {

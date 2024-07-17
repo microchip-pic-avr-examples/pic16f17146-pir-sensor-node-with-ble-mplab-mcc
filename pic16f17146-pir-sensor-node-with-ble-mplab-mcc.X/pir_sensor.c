@@ -48,11 +48,11 @@ void PIR_WarmUp(void)
     
     LED0_SetHigh();  //turn off LED
 
-    PIR_outputatNormalCondition = ADC1_GetFilterValue();
+    PIR_outputatNormalCondition = ADCC_GetFilterValue();
     
     printf("PIR output at normal condition : %u\r\n", PIR_outputatNormalCondition);
     
-    ADC1_DefineSetPoint(PIR_outputatNormalCondition);
+    ADCC_DefineSetPoint(PIR_outputatNormalCondition);
 
     PIR_SetSensitivity(PIR_DEFAULT_SENSITIVITY);
 }
@@ -82,7 +82,7 @@ void PIR_StopSampling(void)
 void PIR_SetSensitivity(uint8_t newSensitivity)
 {
     printf("Setting sensitivity : %d\r\n", newSensitivity * -1);
-    ADC1_SetLowerThreshold(newSensitivity * -1); //set threshold as per sensitivity. 
+    ADCC_SetLowerThreshold(newSensitivity * -1); //set threshold as per sensitivity. 
     //ADCC ERROR value will be negative when ADCC Filtered output is less than defined setpoint 
 }
 

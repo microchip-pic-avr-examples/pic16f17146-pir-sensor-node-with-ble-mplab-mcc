@@ -40,9 +40,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "config_bits.h"
-#include "../system/clock.h"
 #include "../system/pins.h"
-#include "../adc/adc1.h"
+#include "../adcc/adcc.h"
 #include "../dac/dac2.h"
 #include "../uart/eusart1.h"
 #include "../uart/eusart2.h"
@@ -51,6 +50,7 @@
 #include "../timer/tmr0.h"
 #include "../timer/tmr2.h"
 #include "../system/interrupt.h"
+#include "../system/clock.h"
 
 /**
  * @ingroup systemdriver

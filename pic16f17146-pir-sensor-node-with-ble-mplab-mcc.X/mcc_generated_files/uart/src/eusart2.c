@@ -5,9 +5,9 @@
  * 
  * @ingroup eusart2
  * 
- * @brief This is the generated driver implementation file for the EUSART2 driver using CCL
+ * @brief This is the generated driver implementation file for the EUSART2 driver using the Enhanced Universal Synchronous and Asynchronous Receiver Transceiver (EUSART) module.
  *
- * @version EUSART2 Driver Version 3.0.0
+ * @version EUSART2 Driver Version 3.0.1
 */
 
 /*
@@ -40,8 +40,8 @@
   Section: Macro Declarations
 */
 
-#define EUSART2_RX_BUFFER_SIZE (8) //buffer size should be 2^n
-#define EUSART2_RX_BUFFER_MASK (EUSART2_RX_BUFFER_SIZE - 1)
+#define EUSART2_RX_BUFFER_SIZE (8U) //buffer size should be 2^n
+#define EUSART2_RX_BUFFER_MASK (EUSART2_RX_BUFFER_SIZE - 1U)
 
 /**
   Section: Driver Interface
@@ -81,17 +81,19 @@ static volatile uint8_t eusart2RxHead = 0;
 static volatile uint8_t eusart2RxTail = 0;
 static volatile uint8_t eusart2RxBuffer[EUSART2_RX_BUFFER_SIZE];
 static volatile eusart2_status_t eusart2RxStatusBuffer[EUSART2_RX_BUFFER_SIZE];
-volatile uint8_t eusart2RxCount;
+static volatile uint8_t eusart2RxCount;
 
-volatile eusart2_status_t eusart2RxLastError;
+static volatile eusart2_status_t eusart2RxLastError;
 
 /**
   Section: EUSART2 APIs
 */
 
 void (*EUSART2_RxInterruptHandler)(void);
-void (*EUSART2_FramingErrorHandler)(void);
-void (*EUSART2_OverrunErrorHandler)(void);
+static void (*EUSART2_RxCompleteInterruptHandler)(void) = NULL;
+
+static void (*EUSART2_FramingErrorHandler)(void) = NULL;
+static void (*EUSART2_OverrunErrorHandler)(void) = NULL;
 
 static void EUSART2_DefaultFramingErrorCallback(void);
 static void EUSART2_DefaultOverrunErrorCallback(void);
@@ -106,7 +108,7 @@ void EUSART2_ReceiveISR(void);
 void EUSART2_Initialize(void)
 {
     PIE5bits.RC2IE = 0;   
-    EUSART2_RxCompleteCallbackRegister(EUSART2_ReceiveISR);  
+     EUSART2_RxInterruptHandler = EUSART2_ReceiveISR;   
 
     // Set the EUSART2 module to the options selected in the user interface.
 
@@ -116,10 +118,10 @@ void EUSART2_Initialize(void)
     RC2STA = 0x90; 
     //TX9D 0x0; BRGH hi_speed; SENDB sync_break_complete; SYNC asynchronous; TXEN enabled; TX9 8-bit; CSRC client; 
     TX2STA = 0x26; 
-    //SPBRGL 25; 
-    SP2BRGL = 0x19; 
-    //SPBRGH 0; 
-    SP2BRGH = 0x0; 
+    //SPBRGL 64; 
+    SP2BRGL = 0x40; 
+    //SPBRGH 3; 
+    SP2BRGH = 0x3; 
 
     EUSART2_FramingErrorCallbackRegister(EUSART2_DefaultFramingErrorCallback);
     EUSART2_OverrunErrorCallbackRegister(EUSART2_DefaultOverrunErrorCallback);
@@ -142,49 +144,49 @@ void EUSART2_Deinitialize(void)
     SP2BRGH = 0x00;
 }
 
-inline void EUSART2_Enable(void)
+void EUSART2_Enable(void)
 {
     RC2STAbits.SPEN = 1;
 
 }
 
-inline void EUSART2_Disable(void)
+void EUSART2_Disable(void)
 {
     RC2STAbits.SPEN = 0;
 }
 
 
-inline void EUSART2_TransmitEnable(void)
+void EUSART2_TransmitEnable(void)
 {
     TX2STAbits.TXEN = 1;
 }
 
-inline void EUSART2_TransmitDisable(void)
+void EUSART2_TransmitDisable(void)
 {
     TX2STAbits.TXEN = 0;
 }
 
-inline void EUSART2_ReceiveEnable(void)
+void EUSART2_ReceiveEnable(void)
 {
     RC2STAbits.CREN = 1;
 }
 
-inline void EUSART2_ReceiveDisable(void)
+void EUSART2_ReceiveDisable(void)
 {
     RC2STAbits.CREN = 0;
 }
 
-inline void EUSART2_SendBreakControlEnable(void)
+void EUSART2_SendBreakControlEnable(void)
 {
     TX2STAbits.SENDB = 1;
 }
 
-inline void EUSART2_SendBreakControlDisable(void)
+void EUSART2_SendBreakControlDisable(void)
 {
     TX2STAbits.SENDB = 0;
 }
 
-inline void EUSART2_AutoBaudSet(bool enable)
+void EUSART2_AutoBaudSet(bool enable)
 {
     if(enable)
     {
@@ -196,26 +198,26 @@ inline void EUSART2_AutoBaudSet(bool enable)
     }
 }
 
-inline bool EUSART2_AutoBaudQuery(void)
+bool EUSART2_AutoBaudQuery(void)
 {
 return (bool)(!BAUD2CONbits.ABDEN);
 }
 
-inline bool EUSART2_IsAutoBaudDetectOverflow(void)
+bool EUSART2_IsAutoBaudDetectOverflow(void)
 {
     return (bool)BAUD2CONbits.ABDOVF; 
 }
 
-inline void EUSART2_AutoBaudDetectOverflowReset(void)
+void EUSART2_AutoBaudDetectOverflowReset(void)
 {
     BAUD2CONbits.ABDOVF = 0; 
 }
 
-inline void EUSART2_ReceiveInterruptEnable(void)
+void EUSART2_ReceiveInterruptEnable(void)
 {
     PIE5bits.RC2IE = 1;
 }
-inline void EUSART2_ReceiveInterruptDisable(void)
+void EUSART2_ReceiveInterruptDisable(void)
 {
     PIE5bits.RC2IE = 0; 
 }
@@ -237,7 +239,7 @@ bool EUSART2_IsTxDone(void)
 
 size_t EUSART2_ErrorGet(void)
 {
-    eusart2RxLastError.status = eusart2RxStatusBuffer[(eusart2RxTail + 1) & EUSART2_RX_BUFFER_MASK].status;
+    eusart2RxLastError.status = eusart2RxStatusBuffer[(eusart2RxTail + 1U) & EUSART2_RX_BUFFER_MASK].status;
     return eusart2RxLastError.status;
 }
 
@@ -248,7 +250,7 @@ uint8_t EUSART2_Read(void)
     
     readValue = eusart2RxBuffer[eusart2RxTail];
 
-    tempRxTail = (eusart2RxTail + 1) & EUSART2_RX_BUFFER_MASK; // Buffer size of RX should be in the 2^n
+    tempRxTail = (eusart2RxTail + 1U) & EUSART2_RX_BUFFER_MASK; // Buffer size of RX should be in the 2^n
     
     eusart2RxTail = tempRxTail;
 
@@ -256,7 +258,7 @@ uint8_t EUSART2_Read(void)
     
 
     PIE5bits.RC2IE = 0; 
-    if(eusart2RxCount != 0)
+    if(0U != eusart2RxCount)
     {
         eusart2RxCount--;
     }
@@ -272,7 +274,7 @@ void EUSART2_ReceiveISR(void)
     // use this default receive interrupt handler code
     eusart2RxStatusBuffer[eusart2RxHead].status = 0;
 
-    if(RC2STAbits.OERR)
+    if(true == RC2STAbits.OERR)
     {
         eusart2RxStatusBuffer[eusart2RxHead].oerr = 1;
         if(NULL != EUSART2_OverrunErrorHandler)
@@ -280,7 +282,7 @@ void EUSART2_ReceiveISR(void)
             EUSART2_OverrunErrorHandler();
         }   
     }   
-    if(RC2STAbits.FERR)
+    if(true == RC2STAbits.FERR)
     {
         eusart2RxStatusBuffer[eusart2RxHead].ferr = 1;
         if(NULL != EUSART2_FramingErrorHandler)
@@ -291,7 +293,7 @@ void EUSART2_ReceiveISR(void)
     
     regValue = RC2REG;
     
-    tempRxHead = (eusart2RxHead + 1) & EUSART2_RX_BUFFER_MASK;// Buffer size of RX should be in the 2^n
+    tempRxHead = (eusart2RxHead + 1U) & EUSART2_RX_BUFFER_MASK;// Buffer size of RX should be in the 2^n
     if (tempRxHead == eusart2RxTail) 
     {
 		// ERROR! Receive buffer overflow 
@@ -302,6 +304,11 @@ void EUSART2_ReceiveISR(void)
 		eusart2RxHead = tempRxHead;
 		eusart2RxCount++;
 	}   
+
+    if(NULL != EUSART2_RxCompleteInterruptHandler)
+    {
+        (*EUSART2_RxCompleteInterruptHandler)();
+    } 
 }
 
 void EUSART2_Write(uint8_t txData)
@@ -341,7 +348,7 @@ void EUSART2_RxCompleteCallbackRegister(void (* callbackHandler)(void))
 {
     if(NULL != callbackHandler)
     {
-       EUSART2_RxInterruptHandler = callbackHandler; 
+       EUSART2_RxCompleteInterruptHandler = callbackHandler; 
     }   
 }
 

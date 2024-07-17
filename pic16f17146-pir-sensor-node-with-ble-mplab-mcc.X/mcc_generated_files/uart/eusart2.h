@@ -5,9 +5,9 @@
  * 
  * @defgroup eusart2 EUSART2
  * 
- * @brief This file contains API prototypes and other datatypes for EUSART2 module.
+ * @brief This file contains API prototypes and other datatypes for the Enhanced Universal Synchronous and Asynchronous Receiver Transceiver (EUSART) module.
  *
- * @version EUSART2 Driver Version 3.0.0
+ * @version EUSART2 Driver Version 3.0.1
 */
 /*
 © [2024] Microchip Technology Inc. and its subsidiaries.
@@ -33,12 +33,15 @@
 #ifndef EUSART2_H
 #define EUSART2_H
 
-/**
-  Section: Included Files
- */
 
 #include <stdbool.h>
 #include <stdint.h>
+/**
+    @ingroup eusart2 
+    @def Standard Input Output functions
+    @misradeviation{@required, 21.6} This inclusion is essential for UART module to use Printf function for print the character.
+*/
+/* cppcheck-suppress misra-c2012-21.6 */
 #include <stdio.h>
 #include "../system/system.h"
 #include "uart_drv_interface.h"
@@ -84,7 +87,7 @@
 /**
  @ingroup eusart2
  @struct eusart2_status_t
- @breif This is a structre defined for errors in reception of data.
+ @brief This is a structure defined for errors in reception of data.
  */
 typedef union {
     struct {
@@ -98,9 +101,7 @@ typedef union {
 
 
 
-/**
- Section: Data Type Definitions
- */
+
 
 /**
  * @ingroup eusart2
@@ -110,10 +111,8 @@ extern const uart_drv_interface_t UART2;
 
 /**
  * @ingroup eusart2
- * @brief This API initializes the EUSART2 driver.
- *        This routine initializes the EUSART2 module.
- *        This routine must be called before any other EUSART2 routine is called.
- *        This routine should only be called once during system initialization.
+ * @brief Initializes the EUSART2 module. This routine is called
+ *        only once during system initialization, before calling other APIs.
  * @param None.
  * @return None.
  */
@@ -121,8 +120,7 @@ void EUSART2_Initialize(void);
 
 /**
  * @ingroup eusart2
- * @brief This API Deinitializes the EUSART2 driver.
- *        This routine disables the EUSART2 module.
+ * @brief Deinitializes and disables the EUSART2 module.
  * @param None.
  * @return None.
  */
@@ -134,7 +132,7 @@ void EUSART2_Deinitialize(void);
  * @param None.
  * @return None.
  */
-inline void EUSART2_Enable(void);
+void EUSART2_Enable(void);
 
 /**
  * @ingroup eusart2
@@ -142,16 +140,16 @@ inline void EUSART2_Enable(void);
  * @param None.
  * @return None.
  */
-inline void EUSART2_Disable(void);
+void EUSART2_Disable(void);
 
 /**
  * @ingroup eusart2
  * @brief This API enables the EUSART2 transmitter.
- *        EUSART2 should also be enable to send bytes over TX pin.
+ *        The EUSART2 must be enabled to send the bytes over to the TX pin.
  * @param None.
  * @return None.
  */
-inline void EUSART2_TransmitEnable(void);
+void EUSART2_TransmitEnable(void);
 
 /**
  * @ingroup eusart2
@@ -159,24 +157,24 @@ inline void EUSART2_TransmitEnable(void);
  * @param None.
  * @return None.
  */
-inline void EUSART2_TransmitDisable(void);
+void EUSART2_TransmitDisable(void);
 
 /**
  * @ingroup eusart2
- * @brief This API enables the EUSART2 Receiver.
- *        EUSART2 should also be enable to receive bytes over RX pin.
+ * @brief This API enables the EUSART2 receiver.
+ *        The EUSART2 must be enabled to receive the bytes sent by the RX pin.
  * @param None.
  * @return None.
  */
-inline void EUSART2_ReceiveEnable(void);
+void EUSART2_ReceiveEnable(void);
 
 /**
  * @ingroup eusart2
- * @brief This API disables the EUSART2 Receiver.
+ * @brief This API disables the EUSART2 receiver.
  * @param None.
  * @return None.
  */
-inline void EUSART2_ReceiveDisable(void);
+void EUSART2_ReceiveDisable(void);
 
 
 /**
@@ -197,11 +195,11 @@ void EUSART2_ReceiveInterruptDisable(void);
 
 /**
  * @ingroup eusart2
- * @brief This API enables the EUSART2 send break control.
+ * @brief This API enables the EUSART2 to send a break control. 
  * @param None.
  * @return None.
  */
-inline void EUSART2_SendBreakControlEnable(void);
+void EUSART2_SendBreakControlEnable(void);
 
 /**
  * @ingroup eusart2
@@ -209,43 +207,43 @@ inline void EUSART2_SendBreakControlEnable(void);
  * @param None.
  * @return None.
  */
-inline void EUSART2_SendBreakControlDisable(void);
+void EUSART2_SendBreakControlDisable(void);
 
 /**
  * @ingroup eusart2
- * @brief This API enables the EUSART2 AutoBaud Detection.
+ * @brief This API enables the EUSART2 AutoBaud Detection (ABR). 
  * @param bool enable.
  * @return None.
  */
-inline void EUSART2_AutoBaudSet(bool enable);
+void EUSART2_AutoBaudSet(bool enable);
 
 /**
  * @ingroup eusart2
- * @brief This API reads the EUSART2 AutoBaud Detection Complete bit.
+ * @brief This API reads the EUSART2 ABR Complete bit.
  * @param None.
  * @return bool.
  */
-inline bool EUSART2_AutoBaudQuery(void);
+bool EUSART2_AutoBaudQuery(void);
 
 /**
  * @ingroup eusart2
- * @brief This API reads the EUSART2 AutoBaud Detection overflow bit.
+ * @brief This API reads the EUSART2 ABR Overflow bit.
  * @param None.
  * @return None.
  */
-inline bool EUSART2_IsAutoBaudDetectOverflow(void);
+bool EUSART2_IsAutoBaudDetectOverflow(void);
 
 /**
  * @ingroup eusart2
- * @brief This API Reset the EUSART2 AutoBaud Detection Overflow bit.
+ * @brief This API resets the EUSART2 ABR Overflow bit.
  * @param None.
  * @return None.
  */
-inline void EUSART2_AutoBaudDetectOverflowReset(void);
+void EUSART2_AutoBaudDetectOverflowReset(void);
 
 /**
  * @ingroup eusart2
- * @brief This API checks if EUSART2 receiver has received data and ready to be read.
+ * @brief This API checks if the EUSART2 has received available data.
  * @param None.
  * @retval true if EUSART2 receiver FIFO has a data
  * @retval false EUSART2 receiver FIFO is empty
@@ -254,7 +252,7 @@ bool EUSART2_IsRxReady(void);
 
 /**
  * @ingroup eusart2
- * @brief This function checks if EUSART2 transmitter is ready to accept a data byte.
+ * @brief This function checks if the EUSART2 transmitter is ready to accept a data byte.
  * @param None.
  * @retval true if EUSART2 transmitter FIFO has atleast 1 byte space
  * @retval false if EUSART2 transmitter FIFO is full
@@ -263,7 +261,7 @@ bool EUSART2_IsTxReady(void);
 
 /**
  * @ingroup eusart2
- * @brief This function return the status of transmit shift register (TSR).
+ * @brief This function returns the status of Transmit Shift Register (TSR).
  * @param None.
  * @retval true if Data completely shifted out from the TSR
  * @retval false if Data is present in Transmit FIFO and/or in TSR
@@ -272,7 +270,7 @@ bool EUSART2_IsTxDone(void);
 
 /**
  * @ingroup eusart2
- * @brief This function gets the error status of the last read byte.
+ * @brief This function receives the error status of the last read byte.
  * @param None.
  * @return Status of the last read byte. See eusart2_status_t struct for more details.
  */
@@ -280,9 +278,9 @@ size_t EUSART2_ErrorGet(void);
 
 /**
  * @ingroup eusart2
- * @brief This function reads the 8 bits from receiver FIFO register.
- * @pre The transfer status should be checked to see if the receiver is not empty
- *      before calling this function. EUSART2_IsRxReady() should be checked in if () before calling this API.
+ * @brief This function reads the 8 bits from the FIFO register receiver.
+ * @pre The transfer status must be checked to see if the receiver is not empty
+ *      before calling this function. Verify the EUSART2_IsRxReady(), before calling this API.
  * @param None.
  * @return 8-bit data from RX FIFO register.
  */
@@ -291,8 +289,8 @@ uint8_t EUSART2_Read(void);
 /**
  * @ingroup eusart2
  * @brief This function writes a byte of data to the transmitter FIFO register.
- * @pre The transfer status should be checked to see if the transmitter is ready to accept a byte
- *      before calling this function. EUSART2_IsTxReady() should be checked in if() before calling this API.
+ * @pre The transfer status must be checked to see if the transmitter is ready to accept a byte
+ *      before calling this function. Verify the EUSART2_IsTxReady() before calling this API.
  * @param txData  - Data byte to write to the TX FIFO.
  * @return None.
  */
@@ -316,23 +314,23 @@ void EUSART2_OverrunErrorCallbackRegister(void (* callbackHandler)(void));
 
 /**
  * @ingroup eusart2
- * @brief This is a pointer to the function that will be called upon receive interrupt.
+ * @brief This indicates the function that will be called upon receive interrupt.
  * @pre Initialize the EUSART2 module with receive interrupt enabled
  * @param None.
  * @return None.
  */
-void (*EUSART2_RxInterruptHandler)(void);
+extern void (*EUSART2_RxInterruptHandler)(void);
 /**
  * @ingroup eusart2
- * @brief This API registers the function to be called upon Receiver interrupt.
- * @param callbackHandler - a function pointer which will be called upon Receiver interrupt condition.
+ * @brief This API registers the function to be called upon after data has been successfully received.
+ * @param callbackHandler - a function pointer which will be called upon receiver interrupt condition.
  * @return None.
  */
 void EUSART2_RxCompleteCallbackRegister(void (* callbackHandler)(void));
 
 /**
  * @ingroup eusart2
- * @brief This function is ISR function to be called upon Receiver interrupt.
+ * @brief This ISR function is called upon receiver interrupt.
  * @param void.
  * @return None.
  */

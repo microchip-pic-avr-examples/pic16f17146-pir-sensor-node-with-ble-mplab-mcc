@@ -7,7 +7,7 @@
  * 
  * @brief This file contains the API prototypes and the related data structures for the OPA1 driver.
  *
- * @version OPA1 Driver Version 2.1.1
+ * @version OPA1 Driver Version 2.1.0
 */
 /*
 © [2024] Microchip Technology Inc. and its subsidiaries.
@@ -38,126 +38,6 @@
 */
 #include <stdint.h>
 #include <stdbool.h>
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_Initialize API
- */
-#define OPA1_Initialize OPA1_Initialize
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_EnableChargePump API
- */
-#define OPA1_EnableChargePump OPA1_EnableChargePump
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_DisableChargePump API
- */
-#define OPA1_DisableChargePump OPA1_DisableChargePump
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_EnableSoftwareUnityGain API
- */
-#define OPA1_EnableSoftwareUnityGain OPA1_EnableSoftwareUnityGain
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_DisableSoftwareUnityGain API
- */
-#define OPA1_DisableSoftwareUnityGain OPA1_DisableSoftwareUnityGain
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetPositiveChannel API
- */
-#define OPA1_SetPositiveChannel OPA1_SetPositiveChannel
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetPositiveSource API
- */
-#define OPA1_SetPositiveSource OPA1_SetPositiveSource
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetNegativeChannel API
- */
-#define OPA1_SetNegativeChannel OPA1_SetNegativeChannel
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetNegativeSource API
- */
-#define OPA1_SetNegativeSource OPA1_SetNegativeSource
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetResistorLadder API
- */
-#define OPA1_SetResistorLadder OPA1_SetResistorLadder
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_EnableHardwareOverride API
- */
-#define OPA1_EnableHardwareOverride OPA1_EnableHardwareOverride
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetHardwareOverrideSource API
- */
-#define OPA1_SetHardwareOverrideSource OPA1_SetHardwareOverrideSource
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_DisableHardwareOverride API
- */
-#define OPA1_DisableHardwareOverride OPA1_DisableHardwareOverride
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetSoftwareOverride API
- */
-#define OPA1_SetSoftwareOverride OPA1_SetSoftwareOverride
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_SetInputOffset API
- */
-#define OPA1_SetInputOffset OPA1_SetInputOffset
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_resistor_select
- */
-#define OPA1_resistor_select OPA1_resistor_select
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_posChannel_select
- */
-#define OPA1_posChannel_select OPA1_posChannel_select
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_posSource_select
- */
-#define OPA1_posSource_select OPA1_posSource_select
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_negChannel_select
- */
-#define OPA1_negChannel_select OPA1_negChannel_select
-
-/**
- * @ingroup  opa1
- * @brief    This macro defines the Custom Name for \ref OPA1_negSource_select
- */
-#define OPA1_negSource_select OPA1_negSource_select
 
 /**
  * @ingroup opa1
@@ -280,7 +160,7 @@ inline void OPA1_DisableSoftwareUnityGain(void);
  * @ingroup opa1
  * @brief Sets the positive channel.
  * @pre OPA1_Initialize() is already called.
- * @param posChannel - Selected positive channel for OPA1. Refer to the OPA1_posChannel_select for a complete list of possible values.
+ * @param posChannel - Selected positive channel for OPA1. Refer to the OPA1_posChannel_select for complete list of possible values.
  * @return None.
 */
 inline void OPA1_SetPositiveChannel(OPA1_posChannel_select posChannel);
@@ -289,7 +169,7 @@ inline void OPA1_SetPositiveChannel(OPA1_posChannel_select posChannel);
  * @ingroup opa1
  * @brief Sets the positive source.
  * @pre OPA1_Initialize() is already called.
- * @param posSource - Selected positive source for OPA1. Refer to OPA1_posSource_select for a complete list of possible values.
+ * @param posSource - Selected positive source for OPA1. Refer to OPA1_posSource_select for complete list of possible values.
  * @return None.
 */
 inline void OPA1_SetPositiveSource(OPA1_posSource_select posSource);
@@ -298,7 +178,7 @@ inline void OPA1_SetPositiveSource(OPA1_posSource_select posSource);
  * @ingroup opa1
  * @brief Sets the negative channel.
  * @pre OPA1_Initialize() is already called.
- * @param Selected negative channel for OPA1. Refer to the OPA1_negChannel_select for a complete list of possible values.
+ * @param Selected negative channel for OPA1. Refer to the OPA1_negChannel_select for complete list of possible values.
  * @return None.
 */
 inline void OPA1_SetNegativeChannel(OPA1_negChannel_select negChannel);
@@ -307,7 +187,7 @@ inline void OPA1_SetNegativeChannel(OPA1_negChannel_select negChannel);
  * @ingroup opa1
  * @brief Sets the negative source.
  * @pre OPA1_Initialize() is already called.
- * @param Selected negative source for OPA1. Refer to the OPA1_negSource_select for a complete list of possible values.
+ * @param Selected negative source for OPA1. Refer to the OPA1_negSource_select for complete list of possible values.
  * @return None.
 */
 inline void OPA1_SetNegativeSource(OPA1_negSource_select negSource);
@@ -316,7 +196,7 @@ inline void OPA1_SetNegativeSource(OPA1_negSource_select negSource);
  * @ingroup opa1
  * @brief Sets the R1 and R2 values of internal resistor ladder.
  * @pre OPA1_Initialize() is already called.
- * @param resistorSelection - Selected R2/R1 resistor ratio for OPA1. Refer to the OPA1_resistor_select for a complete list of possible values.
+ * @param resistorSelection - Selected R2/R1 resistor ratio for OPA1. Refer to the OPA1_resistor_select for complete list of possible values.
  * @return None.
 */
 void OPA1_SetResistorLadder(OPA1_resistor_select resistorSelection);
@@ -353,7 +233,7 @@ inline void OPA1_DisableHardwareOverride(void);
  * @ingroup opa1
  * @brief Selects the software override mode.
  * @pre The OPA1_DisableHardwareOverride() is already called.
- * @param softwareControl - Two-bit value representing the selected Software Control mode.
+ * @param softwareControl - Two-bit value representing the selected software control mode.
  * @return None.
 */
 inline void OPA1_SetSoftwareOverride(uint8_t softwareControl);
@@ -362,7 +242,7 @@ inline void OPA1_SetSoftwareOverride(uint8_t softwareControl);
  * @ingroup opa1
  * @brief Sets the input offset calibration value of OPA1.
  * @pre OPA1_Initialize() is already called.
- * @param offset - Input offset calibration value.
+ * @param offset - input offset calibration value.
  * @return None.
 */
 inline void OPA1_SetInputOffset(uint8_t offset);

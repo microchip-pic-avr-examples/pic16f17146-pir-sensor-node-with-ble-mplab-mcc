@@ -7,8 +7,8 @@
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
-        <logicalFolder name="adc" displayName="adc" projectFiles="true">
-          <itemPath>mcc_generated_files/adc/adc1.h</itemPath>
+        <logicalFolder name="adcc" displayName="adcc" projectFiles="true">
+          <itemPath>mcc_generated_files/adcc/adcc.h</itemPath>
         </logicalFolder>
         <logicalFolder name="dac" displayName="dac" projectFiles="true">
           <itemPath>mcc_generated_files/dac/dac2.h</itemPath>
@@ -58,9 +58,9 @@
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
-        <logicalFolder name="adc" displayName="adc" projectFiles="true">
+        <logicalFolder name="adcc" displayName="adcc" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
-            <itemPath>mcc_generated_files/adc/src/adc1.c</itemPath>
+            <itemPath>mcc_generated_files/adcc/src/adcc.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="dac" displayName="dac" projectFiles="true">
@@ -114,7 +114,7 @@
         <targetDevice>PIC16F17146</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>nEdbgTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>2.46</languageToolchainVersion>
         <platform>3</platform>
@@ -338,8 +338,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3fff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I76627/MPLABXProjects/pic16f17146-pir-sensor-node-with-ble.X/debug/free/pic16f17146-pir-sensor-node-with-ble_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -587,8 +585,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3fff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I76627/MPLABXProjects/pic16f17146-pir-sensor-node-with-ble.X/debug/pro/pic16f17146-pir-sensor-node-with-ble_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

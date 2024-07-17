@@ -37,7 +37,7 @@ void ApplicationSetup(void)
     PIR_StopObservingOutputChange();
     
     RN4871_UART_TX_IND_SetInterruptHandler(RN4871_UART_TX_IND_IOC_UserInteruptHandler);
-    ADC1_SetADTIInterruptHandler(ADCC_UserThresholdInterrupt);
+    ADCC_SetADTIInterruptHandler(ADCC_UserThresholdInterrupt);
     Timer0.TimeoutCallbackRegister(TMR0_UserInterruptHandler);  
     
     printf("BLE : Setting up BLE Module..\r\n");
@@ -85,7 +85,7 @@ void ApplicationTask(void)
         printf("ADC Threshold Interrupt occurred\r\n");
         isADCThresholdInterruptOccured = false;      
         
-        if(ADC1_HasErrorCrossedLowerThreshold())
+        if(ADCC_HasErrorCrossedLowerThreshold())
         {
             //Movement detected    
             setAlarm();       
@@ -94,7 +94,7 @@ void ApplicationTask(void)
             //Interrupt will occur if there is no movement.
             ADCON3bits.TMD = ADCTMD_ADERR_GREATHER_THAN_ADUTH; 
         }
-        else if (ADC1_HasErrorCrossedUpperThreshold())
+        else if (ADCC_HasErrorCrossedUpperThreshold())
         {
             //No movement           
             printf("ADC Threshold Interrupt set to : ADERR < ADLTH\r\n");
@@ -161,10 +161,10 @@ void RN4871_UART_TX_IND_IOC_UserInteruptHandler(void)
 void ADCC_UserThresholdInterrupt(void)
 {
     //check if threshold interrupt is occurred due to Accumulator overflow
-    if (ADC1_HasAccumulatorOverflowed())
+    if (ADCC_HasAccumulatorOverflowed())
     {
         //Clear accumulator will clear accumulator overflow bit
-        ADC1_ClearAccumulator();
+        ADCC_ClearAccumulator();
     }
     else
     {

@@ -7,7 +7,7 @@
  * 
  * @brief This file contains the API implementations for the OPA1 driver.
  *
- * @version OPA1 Driver Version 2.1.1
+ * @version OPA1 Driver Version 2.1.0
 */
 /*
 © [2024] Microchip Technology Inc. and its subsidiaries.

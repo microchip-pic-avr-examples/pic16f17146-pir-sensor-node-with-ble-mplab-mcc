@@ -90,7 +90,6 @@ void PIN_MANAGER_Initialize(void)
     PPS registers
     */
     RX1PPS = 0xD; //RB5->EUSART1:RX1;
-    ADACTPPS = 0x12; //RC2->ADCC:ADACT;
     RX2PPS = 0x14; //RC4->EUSART2:RX2;
     RB7PPS = 0x13;  //RB7->EUSART1:TX1;
     RC5PPS = 0x16;  //RC5->EUSART2:TX2;

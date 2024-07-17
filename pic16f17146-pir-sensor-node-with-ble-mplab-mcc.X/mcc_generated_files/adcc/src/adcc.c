@@ -61,8 +61,8 @@ void ADCC_Initialize(void)
     ADSTPTH = 0x0;
     //ADACCU 0x0; 
     ADACCU = 0x0;
-    //ADRPT 0; 
-    ADRPT = 0x0;
+    //ADRPT 64; 
+    ADRPT = 0x40;
     //ADCHS ANA0; 
     ADPCH = 0x0;
     //ADCHS ANA0; 
@@ -85,8 +85,8 @@ void ADCC_Initialize(void)
     ADCG1C = 0x0;
     //ADDSEN disabled; ADPCSC internal sampling capacitor and ext i/o pin; ADGPOL digital_low; ADIPEN disabled; ADPPOL Vss; 
     ADCON1 = 0x0;
-    //ADMD Basic_mode; ADACLR disabled; ADCRS 6; ADPSIS RES; 
-    ADCON2 = 0x60;
+    //ADMD Low_pass_filter_mode; ADACLR disabled; ADCRS 6; ADPSIS RES; 
+    ADCON2 = 0x64;
     //ADTMD ADERR < ADLTH; ADSOI ADGO not cleared; ADCALC Filtered value vs setpoint; 
     ADCON3 = 0x51;
     //ADMATH registers not updated; 
@@ -97,8 +97,8 @@ void ADCC_Initialize(void)
     ADACT = 0x4;
     //ADCCS FOSC/2; 
     ADCLK = 0x0;
-    //GO_nDONE undefined; ADIC single-ended mode; ADFM left justified; ADCS ADCRC; ADCONT disabled; ADON enabled; 
-    ADCON0 = 0x90;
+    //GO_nDONE undefined; ADIC single-ended mode; ADFM right justified; ADCS ADCRC; ADCONT disabled; ADON enabled; 
+    ADCON0 = 0x94;
     
     // Clear the ADC interrupt flag
     PIR6bits.ADIF = 0;

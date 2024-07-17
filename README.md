@@ -16,8 +16,8 @@ Both of these parts are independent to each other meaning any choice of sensor c
 ## Software Used
 - [MPLAB® X IDE 6.20 ](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08)or newer
 - [Microchip XC8 Compiler 2.46](https://www.microchip.com/en-us/tools-resources/develop/mplab-xc-compilers?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
-- [MPLAB® Code Configurator (MCC) 5.1.9](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
--	[Microchip PIC16F1xxxx Series Device Support (DFP) 1.14.187](https://packs.download.microchip.com/)or newer
+- [MPLAB® Code Configurator (MCC) 5.5.1](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
+-	[Microchip PIC16F1xxxx Series Device Support (DFP) 1.25.389](https://packs.download.microchip.com/)or newer
 - [Microchip Bluetooth Data iOS® app 3.0](https://apps.apple.com/us/app/microchip-bluetooth-data/id1319166097) or newer
 - [Microchip Bluetooth Data Android™ app 6.1 ](https://play.google.com/store/apps/details?id=com.microchip.bluetooth.data) or newer
 - [RN4871 Firmware 1.41 ](https://www.microchip.com/product/RN4871)or newer
@@ -231,8 +231,8 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 3. Click on BM70.
 4. Click on Scan. If a pop-up message appears to turn on Bluetooth, click Yes and then click Scan again.
 5. Click the Scan tab to list the devices.
-6. Wait four to five seconds, and then click Cancel to cancel the scan. After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen.
-**Note:** If the name is not listed, go to Step 4 and repeat the scan.
+6. Wait four to five seconds, and then click Cancel to cancel the scan. After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen.<br>
+**Note:** If the name is not listed, go to Step 4 and repeat the scan.<br>
 7. Click on the BLE Module name.
 8. Wait for the connection. The LED on the RN4871 Click board will blink twice continuously when the connected is established.
 9. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.

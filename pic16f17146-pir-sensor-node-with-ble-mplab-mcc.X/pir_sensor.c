@@ -27,6 +27,7 @@ adc_result_t PIR_outputatNormalCondition; //PIR output when there is no movement
 
 void PIR_Setup(void)
 {
+    ADPCH = channel_ANC2; // ADC positive channel is selected to be RC2
     DAC2_SetOutput(DAC_VALUE_853mV); //DAC output is connected to OPA non-inverting terminal.
     PIR_WarmUp();
 }

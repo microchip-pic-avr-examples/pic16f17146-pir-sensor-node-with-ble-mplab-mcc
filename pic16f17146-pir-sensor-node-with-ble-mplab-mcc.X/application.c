@@ -47,8 +47,6 @@ void ApplicationSetup(void)
     
     printf("PIR: Setting up PIR sensor..\r\n");
     PIR_Setup(); 
-    //ADRPT 64; 
-    ADRPT = 0x40; // as there is a bug in the MCC generated ADC initialization code, we are setting this value here
     printf("PIR: PIR sensor setup completed\r\n");
     PIR_StartObservingOutputChange();
 }

@@ -14,13 +14,13 @@ Both of these parts are independent to each other meaning any choice of sensor c
 -	[PIC16F17146 Data Sheet](https://www.microchip.com/DS40002343)
 
 ## Software Used
-- [MPLAB® X IDE 6.20 ](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08)or newer
+- [MPLAB® X IDE 6.20 ](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
 - [Microchip XC8 Compiler 2.46](https://www.microchip.com/en-us/tools-resources/develop/mplab-xc-compilers?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
 - [MPLAB® Code Configurator (MCC) 5.5.1](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08) or newer
--	[Microchip PIC16F1xxxx Series Device Support (DFP) 1.25.389](https://packs.download.microchip.com/)or newer
+-	[Microchip PIC16F1xxxx Series Device Support (DFP) 1.25.389](https://packs.download.microchip.com/) or newer
 - [Microchip Bluetooth Data iOS® app 3.0](https://apps.apple.com/us/app/microchip-bluetooth-data/id1319166097) or newer
 - [Microchip Bluetooth Data Android™ app 6.1 ](https://play.google.com/store/apps/details?id=com.microchip.bluetooth.data) or newer
-- [RN4871 Firmware 1.41 ](https://www.microchip.com/product/RN4871)or newer
+- [RN4871 Firmware 1.41 ](https://www.microchip.com/product/RN4871) or newer
 
 ## Hardware Used
 -	[PIC16F17146 Curiosity Nano Board](https://www.microchip.com/en-us/development-tool/EV72J15A?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_PIC16F171xx&utm_content=pic16f17146-pir-sensor-node-with-ble-mplab-mcc-github&utm_bu=MCU08)
@@ -149,7 +149,7 @@ After movement is detected, the MCU wakes up due to a lower threshold interrupt.
 When movement is detected, the MCU turns on the LED for five seconds. The MCU goes to sleep immediately after turning on the LED. TMR0 generates an interrupt after five seconds to turn off the LED. This period can be changed, per application, as needed.  
 
 ## RN4871 BLE Module Interface
-RN4871 communicates with the host controller using ASCII commands over the  Universal Asynchronous Receiver/Transmitter (UART) interface(UART) interface. RN4871 acts as a peripheral device and the smartphone acts as a central device throughout this application.
+RN4871 communicates with the host controller using ASCII commands over the  Universal Asynchronous Receiver/Transmitter (UART) interface. RN4871 acts as a peripheral device and the smartphone acts as a central device throughout this application.
 
 In this example, whenever movement is detected by the PIR sensor, a message is sent to the smartphone. Also, PIR sensitivity can be updated by sending data from the smartphone to the BLE module.
 
@@ -181,7 +181,7 @@ The PIR Click board is used for demonstration purposes. The Click board needs to
 
 ![pir-click-modification](images/pir-click-modification.png)
 
-For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor data sheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS<sup> TM</sup> header to bypass the amplification and filter stage.
+For this example, no external components are required (except a 47k resistor at the output of the sensor which is recommended by the sensor data sheet). The R11 resistor from the Click board is removed and PIR output (VOUT) is directly connected (green cable in the image present in [Hardware Setup](https://github.com/microchip-pic-avr-examples/pic16f17146-pir-sensor-node-with-ble-mplab-mcc#Hardware-Setup)) to the one of the NC pins (RST) of the mikroBUS<sup>TM</sup> header to bypass the amplification and filter stage.
 
 #### Hardware Modifications on RN4871 Click:
 The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin on the mikroBUS header. Thus, a wire is explicitly soldered to connect the UART_TX_IND pin (pin 15 – P2_7) and one of the NC pins (SCK) of the mikroBUS header.
@@ -234,7 +234,7 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 6. Wait four to five seconds, and then click Cancel to cancel the scan. After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen.<br>
 **Note:** If the name is not listed, go to Step 4 and repeat the scan.<br>
 7. Click on the BLE Module name.
-8. Wait for the connection. The LED on the RN4871 Click board will blink twice continuously when the connected is established.
+8. Wait for the connection. The LED on the RN4871 Click board will blink twice, continuously, when the connected is established.
 9. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.
 
 ![connection-steps](images/connection-steps.gif)
@@ -253,7 +253,7 @@ Additional Links: [MCC Melody Technical Reference](https://onlinedocs.microchip.
 |    OPA                    |   *Hardware Settings*<br> Enable Op Amp<br>   Op Amp   Configuration – Inverting Programmable Gain Amplifier<br><br>*Channel Selection*<br>Positive Channel – DAC2_OUT<br>Negative Channel – GSEL<br>Negative Source Selection – OPA1IN1-  <br><br> *Programmable Gain and Feedback Selection* <br>Internal Resistor Ladder selection – R2/R1 = 15        |    Amplifies PIR output      |
 |    DAC2                    |  *Hardware Settings*<br>  Enable DAC<br>   DAC Positive reference selection – FVR<br>   DAC Negative reference selection – VSS  |    Connects to OPA non-inverting terminal. Provides bias voltage.                                   |    
 |    FVR                    |   *Hardware Settings*<br> Enable FVR<br>   FVR_buffer 1 Gain – off<br>   FVR_buffer 2 Gain – 2x       |    Provides reference voltage to DAC                                           |                                 
-|    ADCC                    |   *Software Settings*<br> TMR Dependecy Selector - TMR2<br><br>*Hardware Settings*<br>Enable ADCC<br>   Input   Configuration- Single Ended Mode<br> Positive   Reference – VDD<br>Auto-conversion Trigger – TMR2<br>Result   Alignment – Right justified<br><br> *Computation Settings*<br> Operating   Mode – Low Pass Filter Mode<br> Error Calculation Mode – Filtered value vs setpoint  <br> Threshold setpoint – 0 <br> Upper Threshold - 0<br>Threshold Interrupt Mode – ADERR < ADLTH <br> Repeat – 64 <br> Accumulator Right Shift – 6 <br><br> *ADC Clock settings* <br> Clock Source – ADCRC  <br><br> *Interrupt Settings*<br>ADTI Interrupt Enable|    Monitors OPA output                                          |
+|    ADCC                    |   *Software Settings*<br> TMR Dependecy Selector - TMR2<br><br>*Hardware Settings*<br>Enable ADCC<br>   Input   Configuration- Single Ended Mode<br> Operating   Mode – Low Pass Filter Mode<br>Positive   Reference – VDD<br>Auto-conversion Trigger – TMR2<br>Result   Alignment – Right justified<br>Acquisition Count - 3<br><br> *Computation Settings*<br> Error Calculation Mode – Filtered value vs setpoint  <br> Threshold setpoint – 0 <br> Upper Threshold - 0<br>Threshold Interrupt Mode – ADERR < ADLTH <br> Repeat – 64 <br> Accumulator Right Shift – 6 <br><br> *ADC Clock settings* <br> Clock Source – ADCRC  <br><br> *Interrupt Settings*<br>ADTI Interrupt Enable|    Monitors OPA output                                          |
 |    TMR2                    |   *Software Settings*<br> Dependency Selector – TMR2<br><br> *Hardware Settings*<br>Disable Timer<br>Control Mode – Roll over pulse<br>Start/Reset Option – Software control<br><br>*Timer Clock*<br> Clock Source – LFINTOSC <br> Prescaler – 1:1 <br> Postscaler – 1:1 <br><br>*Timer Period*<br>  Timer Period – 840 us         |    Triggers ADCC                                                      |
 |   TMR0  |   *Hardware Settings*<br> Disable Timer<br>   Clock Prescaler  – 1:1024<br> Clock Source – LFINTOSC<br>Disable   Synchronisation<br>        Requested   Period – 5s<br><br> *Interrupt Settings*<br>  Enable TMR Interrupt|    Provides time to turn off the LED                                  |
 |  EUSART1  |  *UART1 Driver*<br>Requested Baudrate –   9600 <br> UART PLIB Selector – EUSART1<br>Enable Redirect   STDIO to EUSART <br><br> *EUSART1 PLIB* <br>Enable Receive<br>  Enable Transmit<br> Enable Serial   Port                                                                                                                                                                                              |    Sends data to   PC terminal                                              |

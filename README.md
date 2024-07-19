@@ -234,7 +234,7 @@ The RN4871 Click does not provide the connection for RN4871’s UART_TX_IND pin 
 6. Wait four to five seconds, and then click Cancel to cancel the scan. After canceling the scan, the Bluetooth module name (Sensor_Node), should be listed on the screen.<br>
 **Note:** If the name is not listed, go to Step 4 and repeat the scan.<br>
 7. Click on the BLE Module name.
-8. Wait for the connection. The LED on the RN4871 Click board will blink twice, continuously, when the connected is established.
+8. Wait for the connection. The LED on the RN4871 Click board will blink twice, continuously, when the connection is established.
 9. Click on Transfer data to open the UART stream. Now, the data sent by the RN4871 can be observed and data can be sent to the RN4871.
 
 ![connection-steps](images/connection-steps.gif)
